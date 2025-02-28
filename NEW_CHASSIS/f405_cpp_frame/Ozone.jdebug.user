@@ -1,0 +1,23 @@
+
+OpenDocument="real_main.cpp", FilePath="D:/Project/ACE/F405_INFANTRY_CODE/CHASSIS/f405_cpp_frame/Main/real_main.cpp", Line=2
+OpenDocument="tasks.c", FilePath="D:/Project/ACE/F405_INFANTRY_CODE/CHASSIS/f405_cpp_frame/Middlewares/Third_Party/FreeRTOS/Source/tasks.c", Line=3427
+OpenDocument="startup_stm32f405xx.s", FilePath="D:/Project/ACE/F405_INFANTRY_CODE/CHASSIS/f405_cpp_frame/startup_stm32f405xx.s", Line=56
+OpenToolbar="Debug", Floating=0, x=0, y=0
+OpenWindow="Call Stack", DockArea=RIGHT, x=0, y=1, w=259, h=256, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Source Files", DockArea=LEFT, x=0, y=0, w=1176, h=726, TabPos=1, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=259, h=505, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=1176, h=726, TabPos=0, TopOfStack=1, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Data Sampling", DockArea=BOTTOM, x=0, y=0, w=905, h=465, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
+OpenWindow="Timeline", DockArea=BOTTOM, x=1, y=0, w=1254, h=465, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, DataPaneShown=1, PowerPaneShown=0, CodePaneShown=0, PinCursor="Cursor Movable", TimePerDiv="1 s / Div", TimeStampFormat="Time", DataGraphDrawAsPoints=0, DataGraphLegendShown=1, DataGraphUniformSampleSpacing=0, DataGraphLegendPosition="62;22", PowerGraphDrawAsPoints=0, PowerGraphLegendShown=0, PowerGraphAvgFilterTime=Off, PowerGraphAvgFilterLen=Off, PowerGraphUniformSampleSpacing=0, PowerGraphLegendPosition="580;0", CodeGraphLegendShown=0, CodeGraphLegendPosition="598;0"
+TableHeader="Source Files", SortCol="File", SortOrder="ASCENDING", VisibleCols=["File";"Status";"Size";"#Insts";"Path"], ColWidths=[223;100;100;100;2110]
+TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[100;106;100;100;130;178]
+TableHeader="Data Sampling Table", SortCol="Index", SortOrder="ASCENDING", VisibleCols=["Index";"Time"], ColWidths=[100;100]
+TableHeader="Data Sampling Setup", SortCol="Type", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[206;102;118;100;100;150;182;214;214]
+TableHeader="Power Sampling", SortCol="Index", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
+TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
+TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh";"Access"], ColWidths=[621;301;134;130;147]
+TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[200;100;100;340]
+WatchedExpression="chassis_ctrl_c::Chassis_Instance->lqr_follow->lqr_data_.k[0]", Window=Watched Data 1
+WatchedExpression="chassis_ctrl_c::Chassis_Instance->lqr_follow->lqr_data_.k[1]", Window=Watched Data 1
+WatchedExpression="chassis_ctrl_c::Chassis_Instance", Window=Watched Data 1
+WatchedExpression="chassis_ctrl_c::Chassis_Instance->lqr_follow->lqr_data_.k[1]", Window=Watched Data 1

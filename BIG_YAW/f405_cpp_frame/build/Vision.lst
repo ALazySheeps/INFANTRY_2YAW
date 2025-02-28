@@ -1,0 +1,498 @@
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"Vision.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Virtual_Init,"ax",%progbits
+  20              		.align	1
+  21              		.global	Virtual_Init
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	Virtual_Init:
+  27              	.LFB163:
+  28              		.file 1 "App/C_virtual/Vision.c"
+   1:App/C_virtual/Vision.c **** //视觉任务，现在无需电控下位机进行弹道解算，保证通讯稳定不单开任务
+   2:App/C_virtual/Vision.c **** #include "Vision.h"
+   3:App/C_virtual/Vision.c **** #include "fifo.h"
+   4:App/C_virtual/Vision.c ****     
+   5:App/C_virtual/Vision.c **** fifo_s_t* usb_info = NULL;
+   6:App/C_virtual/Vision.c **** Visual_Rx_t Visual_Rx;
+   7:App/C_virtual/Vision.c **** Visual_Tx_t Visual_Tx;
+   8:App/C_virtual/Vision.c **** float Send_Pitch_Compeny = 0.0f;  //pitch补偿
+   9:App/C_virtual/Vision.c **** 
+  10:App/C_virtual/Vision.c **** void Virtual_Init()
+  11:App/C_virtual/Vision.c **** {
+  29              		.loc 1 11 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 10B5     		push	{r4, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 4, -8
+  37              		.cfi_offset 14, -4
+  12:App/C_virtual/Vision.c ****     memset(&Visual_Rx, 0, sizeof(Visual_Rx_t));
+  38              		.loc 1 12 5 view .LVU1
+  39 0002 094C     		ldr	r4, .L3
+  40 0004 0021     		movs	r1, #0
+  41 0006 2160     		str	r1, [r4]
+  42 0008 6160     		str	r1, [r4, #4]
+  43 000a A160     		str	r1, [r4, #8]
+  44 000c E160     		str	r1, [r4, #12]
+  45 000e 2161     		str	r1, [r4, #16]
+  13:App/C_virtual/Vision.c ****     memset(&Visual_Tx, 0, sizeof(Visual_Tx_t));
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s 			page 2
+
+
+  46              		.loc 1 13 5 view .LVU2
+  47 0010 2422     		movs	r2, #36
+  48 0012 0648     		ldr	r0, .L3+4
+  49 0014 FFF7FEFF 		bl	memset
+  50              	.LVL0:
+  14:App/C_virtual/Vision.c ****     Visual_Rx.distance = -1.0f;
+  51              		.loc 1 14 5 view .LVU3
+  52              		.loc 1 14 24 is_stmt 0 view .LVU4
+  53 0018 054B     		ldr	r3, .L3+8
+  54 001a E360     		str	r3, [r4, #12]	@ float
+  15:App/C_virtual/Vision.c ****     usb_info = fifo_s_create(96);
+  55              		.loc 1 15 5 is_stmt 1 view .LVU5
+  56              		.loc 1 15 16 is_stmt 0 view .LVU6
+  57 001c 6020     		movs	r0, #96
+  58 001e FFF7FEFF 		bl	fifo_s_create
+  59              	.LVL1:
+  60              		.loc 1 15 14 view .LVU7
+  61 0022 044B     		ldr	r3, .L3+12
+  62 0024 1860     		str	r0, [r3]
+  16:App/C_virtual/Vision.c **** }
+  63              		.loc 1 16 1 view .LVU8
+  64 0026 10BD     		pop	{r4, pc}
+  65              	.L4:
+  66              		.align	2
+  67              	.L3:
+  68 0028 00000000 		.word	.LANCHOR0
+  69 002c 00000000 		.word	.LANCHOR1
+  70 0030 000080BF 		.word	-1082130432
+  71 0034 00000000 		.word	.LANCHOR2
+  72              		.cfi_endproc
+  73              	.LFE163:
+  75              		.section	.text.Virtual_recive,"ax",%progbits
+  76              		.align	1
+  77              		.global	Virtual_recive
+  78              		.syntax unified
+  79              		.thumb
+  80              		.thumb_func
+  82              	Virtual_recive:
+  83              	.LFB164:
+  17:App/C_virtual/Vision.c **** 
+  18:App/C_virtual/Vision.c **** void Virtual_recive(void)
+  19:App/C_virtual/Vision.c **** {
+  84              		.loc 1 19 1 is_stmt 1 view -0
+  85              		.cfi_startproc
+  86              		@ args = 0, pretend = 0, frame = 0
+  87              		@ frame_needed = 0, uses_anonymous_args = 0
+  88 0000 10B5     		push	{r4, lr}
+  89              	.LCFI1:
+  90              		.cfi_def_cfa_offset 8
+  91              		.cfi_offset 4, -8
+  92              		.cfi_offset 14, -4
+  20:App/C_virtual/Vision.c **** 	if(fifo_s_isempty(usb_info) != 1)
+  93              		.loc 1 20 2 view .LVU10
+  94              		.loc 1 20 5 is_stmt 0 view .LVU11
+  95 0002 114B     		ldr	r3, .L9
+  96 0004 1868     		ldr	r0, [r3]
+  97 0006 FFF7FEFF 		bl	fifo_s_isempty
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s 			page 3
+
+
+  98              	.LVL2:
+  99              		.loc 1 20 4 view .LVU12
+ 100 000a 0128     		cmp	r0, #1
+ 101 000c 00D1     		bne	.L8
+ 102              	.L5:
+  21:App/C_virtual/Vision.c **** 	{
+  22:App/C_virtual/Vision.c **** 		static uint8_t read_buff[VIRTUAL_DATA_LEN];
+  23:App/C_virtual/Vision.c **** 		fifo_s_gets(usb_info, read_buff, VIRTUAL_DATA_LEN);
+  24:App/C_virtual/Vision.c **** 		if(read_buff[0] == 0xFF && read_buff[15] == 0xFE)
+  25:App/C_virtual/Vision.c ****         {
+  26:App/C_virtual/Vision.c ****             memcpy(&Visual_Rx.fire_flag,&read_buff[1],1);//允许开火标志位
+  27:App/C_virtual/Vision.c **** 			memcpy(&Visual_Rx.pitch,&read_buff[2],4);
+  28:App/C_virtual/Vision.c **** 			memcpy(&Visual_Rx.yaw,&read_buff[6],4);
+  29:App/C_virtual/Vision.c **** 			memcpy(&Visual_Rx.distance,&read_buff[10],4);
+  30:App/C_virtual/Vision.c **** 			memcpy(&Visual_Rx.armor_nums,&read_buff[14],1);
+  31:App/C_virtual/Vision.c ****         }
+  32:App/C_virtual/Vision.c **** 	}
+  33:App/C_virtual/Vision.c **** }
+ 103              		.loc 1 33 1 view .LVU13
+ 104 000e 10BD     		pop	{r4, pc}
+ 105              	.L8:
+ 106              	.LBB2:
+  22:App/C_virtual/Vision.c **** 		fifo_s_gets(usb_info, read_buff, VIRTUAL_DATA_LEN);
+ 107              		.loc 1 22 3 is_stmt 1 view .LVU14
+  23:App/C_virtual/Vision.c **** 		if(read_buff[0] == 0xFF && read_buff[15] == 0xFE)
+ 108              		.loc 1 23 3 view .LVU15
+ 109 0010 0E4C     		ldr	r4, .L9+4
+ 110 0012 1022     		movs	r2, #16
+ 111 0014 2146     		mov	r1, r4
+ 112 0016 0C4B     		ldr	r3, .L9
+ 113 0018 1868     		ldr	r0, [r3]
+ 114 001a FFF7FEFF 		bl	fifo_s_gets
+ 115              	.LVL3:
+  24:App/C_virtual/Vision.c ****         {
+ 116              		.loc 1 24 3 view .LVU16
+  24:App/C_virtual/Vision.c ****         {
+ 117              		.loc 1 24 15 is_stmt 0 view .LVU17
+ 118 001e 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+  24:App/C_virtual/Vision.c ****         {
+ 119              		.loc 1 24 5 view .LVU18
+ 120 0020 FF2B     		cmp	r3, #255
+ 121 0022 F4D1     		bne	.L5
+  24:App/C_virtual/Vision.c ****         {
+ 122              		.loc 1 24 39 discriminator 1 view .LVU19
+ 123 0024 E37B     		ldrb	r3, [r4, #15]	@ zero_extendqisi2
+  24:App/C_virtual/Vision.c ****         {
+ 124              		.loc 1 24 27 discriminator 1 view .LVU20
+ 125 0026 FE2B     		cmp	r3, #254
+ 126 0028 F1D1     		bne	.L5
+  26:App/C_virtual/Vision.c **** 			memcpy(&Visual_Rx.pitch,&read_buff[2],4);
+ 127              		.loc 1 26 13 is_stmt 1 view .LVU21
+ 128 002a 094B     		ldr	r3, .L9+8
+ 129 002c 6178     		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 130 002e 5970     		strb	r1, [r3, #1]
+  27:App/C_virtual/Vision.c **** 			memcpy(&Visual_Rx.yaw,&read_buff[6],4);
+ 131              		.loc 1 27 4 view .LVU22
+ 132 0030 D4F80210 		ldr	r1, [r4, #2]	@ unaligned
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s 			page 4
+
+
+ 133 0034 5960     		str	r1, [r3, #4]
+  28:App/C_virtual/Vision.c **** 			memcpy(&Visual_Rx.distance,&read_buff[10],4);
+ 134              		.loc 1 28 4 view .LVU23
+ 135 0036 D4F80610 		ldr	r1, [r4, #6]	@ unaligned
+ 136 003a 9960     		str	r1, [r3, #8]
+  29:App/C_virtual/Vision.c **** 			memcpy(&Visual_Rx.armor_nums,&read_buff[14],1);
+ 137              		.loc 1 29 4 view .LVU24
+ 138 003c D4F80A10 		ldr	r1, [r4, #10]	@ unaligned
+ 139 0040 D960     		str	r1, [r3, #12]
+  30:App/C_virtual/Vision.c ****         }
+ 140              		.loc 1 30 4 view .LVU25
+ 141 0042 A27B     		ldrb	r2, [r4, #14]	@ zero_extendqisi2
+ 142 0044 1A74     		strb	r2, [r3, #16]
+ 143              	.LBE2:
+ 144              		.loc 1 33 1 is_stmt 0 view .LVU26
+ 145 0046 E2E7     		b	.L5
+ 146              	.L10:
+ 147              		.align	2
+ 148              	.L9:
+ 149 0048 00000000 		.word	.LANCHOR2
+ 150 004c 00000000 		.word	.LANCHOR3
+ 151 0050 00000000 		.word	.LANCHOR0
+ 152              		.cfi_endproc
+ 153              	.LFE164:
+ 155              		.section	.text.Virtual_send,"ax",%progbits
+ 156              		.align	1
+ 157              		.global	Virtual_send
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 162              	Virtual_send:
+ 163              	.LVL4:
+ 164              	.LFB165:
+  34:App/C_virtual/Vision.c **** 
+  35:App/C_virtual/Vision.c **** uint64_t send_time = 0;
+  36:App/C_virtual/Vision.c **** 
+  37:App/C_virtual/Vision.c **** void Virtual_send(float Pitch, float Yaw, float Roll, float _bullet_speed, uint8_t _reset_tracker, 
+  38:App/C_virtual/Vision.c **** {
+ 165              		.loc 1 38 1 is_stmt 1 view -0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 0, uses_anonymous_args = 0
+ 169              		.loc 1 38 1 is_stmt 0 view .LVU28
+ 170 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 171              	.LCFI2:
+ 172              		.cfi_def_cfa_offset 32
+ 173              		.cfi_offset 3, -32
+ 174              		.cfi_offset 4, -28
+ 175              		.cfi_offset 5, -24
+ 176              		.cfi_offset 6, -20
+ 177              		.cfi_offset 7, -16
+ 178              		.cfi_offset 8, -12
+ 179              		.cfi_offset 9, -8
+ 180              		.cfi_offset 14, -4
+ 181 0004 2DED028B 		vpush.64	{d8}
+ 182              	.LCFI3:
+ 183              		.cfi_def_cfa_offset 40
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s 			page 5
+
+
+ 184              		.cfi_offset 80, -40
+ 185              		.cfi_offset 81, -36
+ 186 0008 B0EE408A 		vmov.f32	s16, s0
+ 187 000c 10EE908A 		vmov	r8, s1
+ 188 0010 11EE109A 		vmov	r9, s2
+ 189 0014 11EE905A 		vmov	r5, s3
+ 190 0018 0746     		mov	r7, r0
+ 191 001a 0E46     		mov	r6, r1
+  39:App/C_virtual/Vision.c ****     send_time++;
+ 192              		.loc 1 39 5 is_stmt 1 view .LVU29
+ 193              		.loc 1 39 14 is_stmt 0 view .LVU30
+ 194 001c 1D4A     		ldr	r2, .L13
+ 195 001e 1368     		ldr	r3, [r2]
+ 196 0020 5168     		ldr	r1, [r2, #4]
+ 197              	.LVL5:
+ 198              		.loc 1 39 14 view .LVU31
+ 199 0022 0133     		adds	r3, r3, #1
+ 200 0024 41F10001 		adc	r1, r1, #0
+ 201 0028 1360     		str	r3, [r2]
+ 202 002a 5160     		str	r1, [r2, #4]
+  40:App/C_virtual/Vision.c **** 
+  41:App/C_virtual/Vision.c ****     static uint8_t send_buff[33];
+ 203              		.loc 1 41 5 is_stmt 1 view .LVU32
+  42:App/C_virtual/Vision.c ****     Visual_Tx.header = 0xFF;
+ 204              		.loc 1 42 5 view .LVU33
+ 205              		.loc 1 42 22 is_stmt 0 view .LVU34
+ 206 002c 1A4C     		ldr	r4, .L13+4
+ 207 002e FF23     		movs	r3, #255
+ 208 0030 2370     		strb	r3, [r4]
+  43:App/C_virtual/Vision.c ****     Visual_Tx.trailer = 0xFE;
+ 209              		.loc 1 43 5 is_stmt 1 view .LVU35
+ 210              		.loc 1 43 23 is_stmt 0 view .LVU36
+ 211 0032 FE23     		movs	r3, #254
+ 212 0034 84F82030 		strb	r3, [r4, #32]
+  44:App/C_virtual/Vision.c ****     memcpy(&Visual_Tx.aim_x, 0, 12);
+ 213              		.loc 1 44 5 is_stmt 1 view .LVU37
+ 214 0038 0C22     		movs	r2, #12
+ 215 003a 0021     		movs	r1, #0
+ 216 003c 04F11400 		add	r0, r4, #20
+ 217              	.LVL6:
+ 218              		.loc 1 44 5 is_stmt 0 view .LVU38
+ 219 0040 FFF7FEFF 		bl	memcpy
+ 220              	.LVL7:
+  45:App/C_virtual/Vision.c ****     Visual_Tx.Roll = Roll;
+ 221              		.loc 1 45 5 is_stmt 1 view .LVU39
+ 222              		.loc 1 45 20 is_stmt 0 view .LVU40
+ 223 0044 C4F80890 		str	r9, [r4, #8]	@ float
+  46:App/C_virtual/Vision.c ****     Visual_Tx.Pitch = Pitch + Send_Pitch_Compeny;
+ 224              		.loc 1 46 5 is_stmt 1 view .LVU41
+ 225              		.loc 1 46 29 is_stmt 0 view .LVU42
+ 226 0048 144B     		ldr	r3, .L13+8
+ 227 004a 93ED000A 		vldr.32	s0, [r3]
+ 228 004e 38EE008A 		vadd.f32	s16, s16, s0
+ 229              	.LVL8:
+ 230              		.loc 1 46 21 view .LVU43
+ 231 0052 84ED038A 		vstr.32	s16, [r4, #12]
+  47:App/C_virtual/Vision.c ****     Visual_Tx.Yaw = Yaw;
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s 			page 6
+
+
+ 232              		.loc 1 47 5 is_stmt 1 view .LVU44
+ 233              		.loc 1 47 19 is_stmt 0 view .LVU45
+ 234 0056 C4F81080 		str	r8, [r4, #16]	@ float
+  48:App/C_virtual/Vision.c ****     Visual_Tx.detect_color = 1;
+ 235              		.loc 1 48 5 is_stmt 1 view .LVU46
+ 236              		.loc 1 48 28 is_stmt 0 view .LVU47
+ 237 005a 0123     		movs	r3, #1
+ 238 005c 6370     		strb	r3, [r4, #1]
+  49:App/C_virtual/Vision.c ****     Visual_Tx.reset_tracker = _reset_tracker;
+ 239              		.loc 1 49 5 is_stmt 1 view .LVU48
+ 240              		.loc 1 49 29 is_stmt 0 view .LVU49
+ 241 005e A770     		strb	r7, [r4, #2]
+  50:App/C_virtual/Vision.c ****     Visual_Tx.now_mode = _now_mode;
+ 242              		.loc 1 50 5 is_stmt 1 view .LVU50
+ 243              		.loc 1 50 24 is_stmt 0 view .LVU51
+ 244 0060 E670     		strb	r6, [r4, #3]
+  51:App/C_virtual/Vision.c ****     Visual_Tx.bullet_speed = _bullet_speed;
+ 245              		.loc 1 51 5 is_stmt 1 view .LVU52
+ 246              		.loc 1 51 28 is_stmt 0 view .LVU53
+ 247 0062 6560     		str	r5, [r4, #4]	@ float
+  52:App/C_virtual/Vision.c ****     memcpy(&send_buff, &Visual_Tx.header, 33);
+ 248              		.loc 1 52 5 is_stmt 1 view .LVU54
+ 249 0064 0E4D     		ldr	r5, .L13+12
+ 250              	.LVL9:
+ 251              		.loc 1 52 5 is_stmt 0 view .LVU55
+ 252 0066 AE46     		mov	lr, r5
+ 253 0068 A446     		mov	ip, r4
+ 254 006a BCE80F00 		ldmia	ip!, {r0, r1, r2, r3}
+ 255 006e AEE80F00 		stmia	lr!, {r0, r1, r2, r3}
+ 256 0072 BCE80F00 		ldmia	ip!, {r0, r1, r2, r3}
+ 257 0076 AEE80F00 		stmia	lr!, {r0, r1, r2, r3}
+ 258 007a DCF80030 		ldr	r3, [ip]
+ 259 007e 8EF80030 		strb	r3, [lr]
+  53:App/C_virtual/Vision.c ****     CDC_Transmit_FS(send_buff, sizeof(send_buff));
+ 260              		.loc 1 53 5 is_stmt 1 view .LVU56
+ 261 0082 2121     		movs	r1, #33
+ 262 0084 2846     		mov	r0, r5
+ 263 0086 FFF7FEFF 		bl	CDC_Transmit_FS
+ 264              	.LVL10:
+  54:App/C_virtual/Vision.c **** }
+ 265              		.loc 1 54 1 is_stmt 0 view .LVU57
+ 266 008a BDEC028B 		vldm	sp!, {d8}
+ 267              	.LCFI4:
+ 268              		.cfi_restore 80
+ 269              		.cfi_restore 81
+ 270              		.cfi_def_cfa_offset 32
+ 271 008e BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 272              	.LVL11:
+ 273              	.L14:
+ 274              		.loc 1 54 1 view .LVU58
+ 275 0092 00BF     		.align	2
+ 276              	.L13:
+ 277 0094 00000000 		.word	.LANCHOR4
+ 278 0098 00000000 		.word	.LANCHOR1
+ 279 009c 00000000 		.word	.LANCHOR5
+ 280 00a0 00000000 		.word	.LANCHOR6
+ 281              		.cfi_endproc
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s 			page 7
+
+
+ 282              	.LFE165:
+ 284              		.section	.text.Get_virtual_recive_ptr,"ax",%progbits
+ 285              		.align	1
+ 286              		.global	Get_virtual_recive_ptr
+ 287              		.syntax unified
+ 288              		.thumb
+ 289              		.thumb_func
+ 291              	Get_virtual_recive_ptr:
+ 292              	.LFB166:
+  55:App/C_virtual/Vision.c **** 
+  56:App/C_virtual/Vision.c **** Visual_Rx_t* Get_virtual_recive_ptr()
+  57:App/C_virtual/Vision.c **** {
+ 293              		.loc 1 57 1 is_stmt 1 view -0
+ 294              		.cfi_startproc
+ 295              		@ args = 0, pretend = 0, frame = 0
+ 296              		@ frame_needed = 0, uses_anonymous_args = 0
+ 297              		@ link register save eliminated.
+  58:App/C_virtual/Vision.c ****     return &Visual_Rx;
+ 298              		.loc 1 58 5 view .LVU60
+  59:App/C_virtual/Vision.c **** }
+ 299              		.loc 1 59 1 is_stmt 0 view .LVU61
+ 300 0000 0048     		ldr	r0, .L16
+ 301 0002 7047     		bx	lr
+ 302              	.L17:
+ 303              		.align	2
+ 304              	.L16:
+ 305 0004 00000000 		.word	.LANCHOR0
+ 306              		.cfi_endproc
+ 307              	.LFE166:
+ 309              		.global	send_time
+ 310              		.global	Send_Pitch_Compeny
+ 311              		.global	Visual_Tx
+ 312              		.global	Visual_Rx
+ 313              		.global	usb_info
+ 314              		.section	.bss.Send_Pitch_Compeny,"aw",%nobits
+ 315              		.align	2
+ 316              		.set	.LANCHOR5,. + 0
+ 319              	Send_Pitch_Compeny:
+ 320 0000 00000000 		.space	4
+ 321              		.section	.bss.Visual_Rx,"aw",%nobits
+ 322              		.align	2
+ 323              		.set	.LANCHOR0,. + 0
+ 326              	Visual_Rx:
+ 327 0000 00000000 		.space	20
+ 327      00000000 
+ 327      00000000 
+ 327      00000000 
+ 327      00000000 
+ 328              		.section	.bss.Visual_Tx,"aw",%nobits
+ 329              		.align	2
+ 330              		.set	.LANCHOR1,. + 0
+ 333              	Visual_Tx:
+ 334 0000 00000000 		.space	36
+ 334      00000000 
+ 334      00000000 
+ 334      00000000 
+ 334      00000000 
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s 			page 8
+
+
+ 335              		.section	.bss.read_buff.1,"aw",%nobits
+ 336              		.align	2
+ 337              		.set	.LANCHOR3,. + 0
+ 340              	read_buff.1:
+ 341 0000 00000000 		.space	16
+ 341      00000000 
+ 341      00000000 
+ 341      00000000 
+ 342              		.section	.bss.send_buff.0,"aw",%nobits
+ 343              		.align	2
+ 344              		.set	.LANCHOR6,. + 0
+ 347              	send_buff.0:
+ 348 0000 00000000 		.space	33
+ 348      00000000 
+ 348      00000000 
+ 348      00000000 
+ 348      00000000 
+ 349              		.section	.bss.send_time,"aw",%nobits
+ 350              		.align	3
+ 351              		.set	.LANCHOR4,. + 0
+ 354              	send_time:
+ 355 0000 00000000 		.space	8
+ 355      00000000 
+ 356              		.section	.bss.usb_info,"aw",%nobits
+ 357              		.align	2
+ 358              		.set	.LANCHOR2,. + 0
+ 361              	usb_info:
+ 362 0000 00000000 		.space	4
+ 363              		.text
+ 364              	.Letext0:
+ 365              		.file 2 "d:\\stm_for_vs\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_default
+ 366              		.file 3 "d:\\stm_for_vs\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 367              		.file 4 "App/C_virtual/fifo.h"
+ 368              		.file 5 "App/C_virtual/visual_config.h"
+ 369              		.file 6 "d:\\stm_for_vs\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\string.h"
+ 370              		.file 7 "<built-in>"
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 Vision.c
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:20     .text.Virtual_Init:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:26     .text.Virtual_Init:00000000 Virtual_Init
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:68     .text.Virtual_Init:00000028 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:76     .text.Virtual_recive:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:82     .text.Virtual_recive:00000000 Virtual_recive
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:149    .text.Virtual_recive:00000048 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:156    .text.Virtual_send:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:162    .text.Virtual_send:00000000 Virtual_send
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:277    .text.Virtual_send:00000094 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:285    .text.Get_virtual_recive_ptr:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:291    .text.Get_virtual_recive_ptr:00000000 Get_virtual_recive_ptr
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:305    .text.Get_virtual_recive_ptr:00000004 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:354    .bss.send_time:00000000 send_time
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:319    .bss.Send_Pitch_Compeny:00000000 Send_Pitch_Compeny
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:333    .bss.Visual_Tx:00000000 Visual_Tx
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:326    .bss.Visual_Rx:00000000 Visual_Rx
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:361    .bss.usb_info:00000000 usb_info
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:315    .bss.Send_Pitch_Compeny:00000000 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:322    .bss.Visual_Rx:00000000 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:329    .bss.Visual_Tx:00000000 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:336    .bss.read_buff.1:00000000 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:340    .bss.read_buff.1:00000000 read_buff.1
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:343    .bss.send_buff.0:00000000 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:347    .bss.send_buff.0:00000000 send_buff.0
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:350    .bss.send_time:00000000 $d
+C:\Users\30806\AppData\Local\Temp\ccgGWCEd.s:357    .bss.usb_info:00000000 $d
+
+UNDEFINED SYMBOLS
+memset
+fifo_s_create
+fifo_s_isempty
+fifo_s_gets
+memcpy
+CDC_Transmit_FS

@@ -1,0 +1,1626 @@
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"user_lib.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.zmalloc,"ax",%progbits
+  20              		.align	1
+  21              		.global	zmalloc
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	zmalloc:
+  27              	.LFB183:
+  28              		.file 1 "ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c"
+   1:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** /**
+   2:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  ******************************************************************************
+   3:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  * @file	 user_lib.c
+   4:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  * @author  Wang Hongxi
+   5:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  * @author  modified by neozng
+   6:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  * @version 0.2 beta
+   7:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  * @date    2021/2/18
+   8:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  * @brief
+   9:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  ******************************************************************************
+  10:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  * @attention
+  11:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  *
+  12:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  ******************************************************************************
+  13:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****  */
+  14:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #include "stdlib.h"
+  15:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #include "memory.h"
+  16:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #include "user_lib.h"
+  17:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #include "math.h"
+  18:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #include "main.h"
+  19:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  20:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #ifdef _CMSIS_OS_H
+  21:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #define user_malloc pvPortMalloc
+  22:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #else
+  23:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #define user_malloc malloc
+  24:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** #endif
+  25:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  26:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** void *zmalloc(size_t size)
+  27:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+  29              		.loc 1 27 1
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 16
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 2
+
+
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+  33 0000 80B5     		push	{r7, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 7, -8
+  37              		.cfi_offset 14, -4
+  38 0002 84B0     		sub	sp, sp, #16
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 24
+  41 0004 00AF     		add	r7, sp, #0
+  42              	.LCFI2:
+  43              		.cfi_def_cfa_register 7
+  44 0006 7860     		str	r0, [r7, #4]
+  28:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     void *ptr = malloc(size);
+  45              		.loc 1 28 17
+  46 0008 7868     		ldr	r0, [r7, #4]
+  47 000a FFF7FEFF 		bl	malloc
+  48 000e 0346     		mov	r3, r0
+  49 0010 FB60     		str	r3, [r7, #12]
+  29:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     memset(ptr, 0, size);
+  50              		.loc 1 29 5
+  51 0012 7A68     		ldr	r2, [r7, #4]
+  52 0014 0021     		movs	r1, #0
+  53 0016 F868     		ldr	r0, [r7, #12]
+  54 0018 FFF7FEFF 		bl	memset
+  30:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return ptr;
+  55              		.loc 1 30 12
+  56 001c FB68     		ldr	r3, [r7, #12]
+  31:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+  57              		.loc 1 31 1
+  58 001e 1846     		mov	r0, r3
+  59 0020 1037     		adds	r7, r7, #16
+  60              	.LCFI3:
+  61              		.cfi_def_cfa_offset 8
+  62 0022 BD46     		mov	sp, r7
+  63              	.LCFI4:
+  64              		.cfi_def_cfa_register 13
+  65              		@ sp needed
+  66 0024 80BD     		pop	{r7, pc}
+  67              		.cfi_endproc
+  68              	.LFE183:
+  70              		.section	.text.Sqrt,"ax",%progbits
+  71              		.align	1
+  72              		.global	Sqrt
+  73              		.syntax unified
+  74              		.thumb
+  75              		.thumb_func
+  77              	Sqrt:
+  78              	.LFB184:
+  32:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  33:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 快速开方
+  34:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float Sqrt(float x)
+  35:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+  79              		.loc 1 35 1
+  80              		.cfi_startproc
+  81              		@ args = 0, pretend = 0, frame = 24
+  82              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 3
+
+
+  83              		@ link register save eliminated.
+  84 0000 80B4     		push	{r7}
+  85              	.LCFI5:
+  86              		.cfi_def_cfa_offset 4
+  87              		.cfi_offset 7, -4
+  88 0002 87B0     		sub	sp, sp, #28
+  89              	.LCFI6:
+  90              		.cfi_def_cfa_offset 32
+  91 0004 00AF     		add	r7, sp, #0
+  92              	.LCFI7:
+  93              		.cfi_def_cfa_register 7
+  94 0006 87ED010A 		vstr.32	s0, [r7, #4]
+  36:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     float y;
+  37:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     float delta;
+  38:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     float maxError;
+  39:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  40:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     if (x <= 0)
+  95              		.loc 1 40 8
+  96 000a D7ED017A 		vldr.32	s15, [r7, #4]
+  97 000e F5EEC07A 		vcmpe.f32	s15, #0
+  98 0012 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  99 0016 02D8     		bhi	.L9
+  41:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+  42:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return 0;
+ 100              		.loc 1 42 16
+ 101 0018 4FF00003 		mov	r3, #0
+ 102 001c 3CE0     		b	.L6
+ 103              	.L9:
+  43:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+  44:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  45:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     // initial guess
+  46:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     y = x / 2;
+ 104              		.loc 1 46 7
+ 105 001e 97ED017A 		vldr.32	s14, [r7, #4]
+ 106 0022 F0EE006A 		vmov.f32	s13, #2.0e+0
+ 107 0026 C7EE267A 		vdiv.f32	s15, s14, s13
+ 108 002a C7ED057A 		vstr.32	s15, [r7, #20]
+  47:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  48:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     // refine
+  49:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     maxError = x * 0.001f;
+ 109              		.loc 1 49 14
+ 110 002e D7ED017A 		vldr.32	s15, [r7, #4]
+ 111 0032 9FED1E7A 		vldr.32	s14, .L10
+ 112 0036 67EE877A 		vmul.f32	s15, s15, s14
+ 113 003a C7ED047A 		vstr.32	s15, [r7, #16]
+ 114              	.L7:
+  50:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  51:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     do
+  52:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+  53:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         delta = (y * y) - x;
+ 115              		.loc 1 53 20 discriminator 3
+ 116 003e D7ED057A 		vldr.32	s15, [r7, #20]
+ 117 0042 27EEA77A 		vmul.f32	s14, s15, s15
+ 118              		.loc 1 53 15 discriminator 3
+ 119 0046 D7ED017A 		vldr.32	s15, [r7, #4]
+ 120 004a 77EE677A 		vsub.f32	s15, s14, s15
+ 121 004e C7ED037A 		vstr.32	s15, [r7, #12]
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 4
+
+
+  54:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         y -= delta / (2 * y);
+ 122              		.loc 1 54 25 discriminator 3
+ 123 0052 D7ED057A 		vldr.32	s15, [r7, #20]
+ 124 0056 37EEA77A 		vadd.f32	s14, s15, s15
+ 125              		.loc 1 54 20 discriminator 3
+ 126 005a D7ED036A 		vldr.32	s13, [r7, #12]
+ 127 005e C6EE877A 		vdiv.f32	s15, s13, s14
+ 128              		.loc 1 54 11 discriminator 3
+ 129 0062 97ED057A 		vldr.32	s14, [r7, #20]
+ 130 0066 77EE677A 		vsub.f32	s15, s14, s15
+ 131 006a C7ED057A 		vstr.32	s15, [r7, #20]
+  55:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     } while (delta > maxError || delta < -maxError);
+ 132              		.loc 1 55 5 discriminator 3
+ 133 006e 97ED037A 		vldr.32	s14, [r7, #12]
+ 134 0072 D7ED047A 		vldr.32	s15, [r7, #16]
+ 135 0076 B4EEE77A 		vcmpe.f32	s14, s15
+ 136 007a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 137 007e DEDC     		bgt	.L7
+ 138              		.loc 1 55 42 discriminator 2
+ 139 0080 D7ED047A 		vldr.32	s15, [r7, #16]
+ 140 0084 F1EE677A 		vneg.f32	s15, s15
+ 141              		.loc 1 55 31 discriminator 2
+ 142 0088 97ED037A 		vldr.32	s14, [r7, #12]
+ 143 008c B4EEE77A 		vcmpe.f32	s14, s15
+ 144 0090 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 145 0094 D3D4     		bmi	.L7
+  56:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  57:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return y;
+ 146              		.loc 1 57 12
+ 147 0096 7B69     		ldr	r3, [r7, #20]	@ float
+ 148              	.L6:
+  58:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 149              		.loc 1 58 1
+ 150 0098 07EE903A 		vmov	s15, r3
+ 151 009c B0EE670A 		vmov.f32	s0, s15
+ 152 00a0 1C37     		adds	r7, r7, #28
+ 153              	.LCFI8:
+ 154              		.cfi_def_cfa_offset 4
+ 155 00a2 BD46     		mov	sp, r7
+ 156              	.LCFI9:
+ 157              		.cfi_def_cfa_register 13
+ 158              		@ sp needed
+ 159 00a4 5DF8047B 		ldr	r7, [sp], #4
+ 160              	.LCFI10:
+ 161              		.cfi_restore 7
+ 162              		.cfi_def_cfa_offset 0
+ 163 00a8 7047     		bx	lr
+ 164              	.L11:
+ 165 00aa 00BF     		.align	2
+ 166              	.L10:
+ 167 00ac 6F12833A 		.word	981668463
+ 168              		.cfi_endproc
+ 169              	.LFE184:
+ 171              		.section	.text.abs_limit,"ax",%progbits
+ 172              		.align	1
+ 173              		.global	abs_limit
+ 174              		.syntax unified
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 5
+
+
+ 175              		.thumb
+ 176              		.thumb_func
+ 178              	abs_limit:
+ 179              	.LFB185:
+  59:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  60:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 绝对值限制
+  61:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float abs_limit(float num, float Limit)
+  62:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 180              		.loc 1 62 1
+ 181              		.cfi_startproc
+ 182              		@ args = 0, pretend = 0, frame = 8
+ 183              		@ frame_needed = 1, uses_anonymous_args = 0
+ 184              		@ link register save eliminated.
+ 185 0000 80B4     		push	{r7}
+ 186              	.LCFI11:
+ 187              		.cfi_def_cfa_offset 4
+ 188              		.cfi_offset 7, -4
+ 189 0002 83B0     		sub	sp, sp, #12
+ 190              	.LCFI12:
+ 191              		.cfi_def_cfa_offset 16
+ 192 0004 00AF     		add	r7, sp, #0
+ 193              	.LCFI13:
+ 194              		.cfi_def_cfa_register 7
+ 195 0006 87ED010A 		vstr.32	s0, [r7, #4]
+ 196 000a C7ED000A 		vstr.32	s1, [r7]
+  63:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     if (num > Limit)
+ 197              		.loc 1 63 8
+ 198 000e 97ED017A 		vldr.32	s14, [r7, #4]
+ 199 0012 D7ED007A 		vldr.32	s15, [r7]
+ 200 0016 B4EEE77A 		vcmpe.f32	s14, s15
+ 201 001a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 202 001e 02DD     		ble	.L20
+  64:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+  65:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         num = Limit;
+ 203              		.loc 1 65 13
+ 204 0020 3B68     		ldr	r3, [r7]	@ float
+ 205 0022 7B60     		str	r3, [r7, #4]	@ float
+ 206 0024 10E0     		b	.L15
+ 207              	.L20:
+  66:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+  67:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     else if (num < -Limit)
+ 208              		.loc 1 67 20
+ 209 0026 D7ED007A 		vldr.32	s15, [r7]
+ 210 002a F1EE677A 		vneg.f32	s15, s15
+ 211              		.loc 1 67 13
+ 212 002e 97ED017A 		vldr.32	s14, [r7, #4]
+ 213 0032 B4EEE77A 		vcmpe.f32	s14, s15
+ 214 0036 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 215 003a 05D5     		bpl	.L15
+  68:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+  69:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         num = -Limit;
+ 216              		.loc 1 69 13
+ 217 003c D7ED007A 		vldr.32	s15, [r7]
+ 218 0040 F1EE677A 		vneg.f32	s15, s15
+ 219 0044 C7ED017A 		vstr.32	s15, [r7, #4]
+ 220              	.L15:
+  70:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 6
+
+
+  71:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return num;
+ 221              		.loc 1 71 12
+ 222 0048 7B68     		ldr	r3, [r7, #4]	@ float
+ 223 004a 07EE903A 		vmov	s15, r3
+  72:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 224              		.loc 1 72 1
+ 225 004e B0EE670A 		vmov.f32	s0, s15
+ 226 0052 0C37     		adds	r7, r7, #12
+ 227              	.LCFI14:
+ 228              		.cfi_def_cfa_offset 4
+ 229 0054 BD46     		mov	sp, r7
+ 230              	.LCFI15:
+ 231              		.cfi_def_cfa_register 13
+ 232              		@ sp needed
+ 233 0056 5DF8047B 		ldr	r7, [sp], #4
+ 234              	.LCFI16:
+ 235              		.cfi_restore 7
+ 236              		.cfi_def_cfa_offset 0
+ 237 005a 7047     		bx	lr
+ 238              		.cfi_endproc
+ 239              	.LFE185:
+ 241              		.section	.text.sign,"ax",%progbits
+ 242              		.align	1
+ 243              		.global	sign
+ 244              		.syntax unified
+ 245              		.thumb
+ 246              		.thumb_func
+ 248              	sign:
+ 249              	.LFB186:
+  73:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  74:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 判断符号位
+  75:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float sign(float value)
+  76:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 250              		.loc 1 76 1
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 8
+ 253              		@ frame_needed = 1, uses_anonymous_args = 0
+ 254              		@ link register save eliminated.
+ 255 0000 80B4     		push	{r7}
+ 256              	.LCFI17:
+ 257              		.cfi_def_cfa_offset 4
+ 258              		.cfi_offset 7, -4
+ 259 0002 83B0     		sub	sp, sp, #12
+ 260              	.LCFI18:
+ 261              		.cfi_def_cfa_offset 16
+ 262 0004 00AF     		add	r7, sp, #0
+ 263              	.LCFI19:
+ 264              		.cfi_def_cfa_register 7
+ 265 0006 87ED010A 		vstr.32	s0, [r7, #4]
+  77:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     if (value >= 0.0f)
+ 266              		.loc 1 77 8
+ 267 000a D7ED017A 		vldr.32	s15, [r7, #4]
+ 268 000e F5EEC07A 		vcmpe.f32	s15, #0
+ 269 0012 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 270 0016 02DB     		blt	.L26
+  78:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+  79:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return 1.0f;
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 7
+
+
+ 271              		.loc 1 79 16
+ 272 0018 4FF07E53 		mov	r3, #1065353216
+ 273 001c 00E0     		b	.L24
+ 274              	.L26:
+  80:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+  81:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     else
+  82:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+  83:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return -1.0f;
+ 275              		.loc 1 83 16
+ 276 001e 054B     		ldr	r3, .L27
+ 277              	.L24:
+  84:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+  85:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 278              		.loc 1 85 1
+ 279 0020 07EE903A 		vmov	s15, r3
+ 280 0024 B0EE670A 		vmov.f32	s0, s15
+ 281 0028 0C37     		adds	r7, r7, #12
+ 282              	.LCFI20:
+ 283              		.cfi_def_cfa_offset 4
+ 284 002a BD46     		mov	sp, r7
+ 285              	.LCFI21:
+ 286              		.cfi_def_cfa_register 13
+ 287              		@ sp needed
+ 288 002c 5DF8047B 		ldr	r7, [sp], #4
+ 289              	.LCFI22:
+ 290              		.cfi_restore 7
+ 291              		.cfi_def_cfa_offset 0
+ 292 0030 7047     		bx	lr
+ 293              	.L28:
+ 294 0032 00BF     		.align	2
+ 295              	.L27:
+ 296 0034 000080BF 		.word	-1082130432
+ 297              		.cfi_endproc
+ 298              	.LFE186:
+ 300              		.section	.text.float_deadband,"ax",%progbits
+ 301              		.align	1
+ 302              		.global	float_deadband
+ 303              		.syntax unified
+ 304              		.thumb
+ 305              		.thumb_func
+ 307              	float_deadband:
+ 308              	.LFB187:
+  86:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+  87:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 浮点死区
+  88:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float float_deadband(float Value, float minValue, float maxValue)
+  89:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 309              		.loc 1 89 1
+ 310              		.cfi_startproc
+ 311              		@ args = 0, pretend = 0, frame = 16
+ 312              		@ frame_needed = 1, uses_anonymous_args = 0
+ 313              		@ link register save eliminated.
+ 314 0000 80B4     		push	{r7}
+ 315              	.LCFI23:
+ 316              		.cfi_def_cfa_offset 4
+ 317              		.cfi_offset 7, -4
+ 318 0002 85B0     		sub	sp, sp, #20
+ 319              	.LCFI24:
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 8
+
+
+ 320              		.cfi_def_cfa_offset 24
+ 321 0004 00AF     		add	r7, sp, #0
+ 322              	.LCFI25:
+ 323              		.cfi_def_cfa_register 7
+ 324 0006 87ED030A 		vstr.32	s0, [r7, #12]
+ 325 000a C7ED020A 		vstr.32	s1, [r7, #8]
+ 326 000e 87ED011A 		vstr.32	s2, [r7, #4]
+  90:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     if (Value < maxValue && Value > minValue)
+ 327              		.loc 1 90 8
+ 328 0012 97ED037A 		vldr.32	s14, [r7, #12]
+ 329 0016 D7ED017A 		vldr.32	s15, [r7, #4]
+ 330 001a B4EEE77A 		vcmpe.f32	s14, s15
+ 331 001e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 332 0022 0BD5     		bpl	.L30
+ 333              		.loc 1 90 26 discriminator 1
+ 334 0024 97ED037A 		vldr.32	s14, [r7, #12]
+ 335 0028 D7ED027A 		vldr.32	s15, [r7, #8]
+ 336 002c B4EEE77A 		vcmpe.f32	s14, s15
+ 337 0030 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 338 0034 02DD     		ble	.L30
+  91:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+  92:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         Value = 0.0f;
+ 339              		.loc 1 92 15
+ 340 0036 4FF00003 		mov	r3, #0
+ 341 003a FB60     		str	r3, [r7, #12]	@ float
+ 342              	.L30:
+  93:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+  94:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return Value;
+ 343              		.loc 1 94 12
+ 344 003c FB68     		ldr	r3, [r7, #12]	@ float
+ 345 003e 07EE903A 		vmov	s15, r3
+  95:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 346              		.loc 1 95 1
+ 347 0042 B0EE670A 		vmov.f32	s0, s15
+ 348 0046 1437     		adds	r7, r7, #20
+ 349              	.LCFI26:
+ 350              		.cfi_def_cfa_offset 4
+ 351 0048 BD46     		mov	sp, r7
+ 352              	.LCFI27:
+ 353              		.cfi_def_cfa_register 13
+ 354              		@ sp needed
+ 355 004a 5DF8047B 		ldr	r7, [sp], #4
+ 356              	.LCFI28:
+ 357              		.cfi_restore 7
+ 358              		.cfi_def_cfa_offset 0
+ 359 004e 7047     		bx	lr
+ 360              		.cfi_endproc
+ 361              	.LFE187:
+ 363              		.section	.text.float_constrain,"ax",%progbits
+ 364              		.align	1
+ 365              		.global	float_constrain
+ 366              		.syntax unified
+ 367              		.thumb
+ 368              		.thumb_func
+ 370              	float_constrain:
+ 371              	.LFB188:
+  96:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 9
+
+
+  97:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 限幅函数
+  98:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float float_constrain(float Value, float minValue, float maxValue)
+  99:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 372              		.loc 1 99 1
+ 373              		.cfi_startproc
+ 374              		@ args = 0, pretend = 0, frame = 16
+ 375              		@ frame_needed = 1, uses_anonymous_args = 0
+ 376              		@ link register save eliminated.
+ 377 0000 80B4     		push	{r7}
+ 378              	.LCFI29:
+ 379              		.cfi_def_cfa_offset 4
+ 380              		.cfi_offset 7, -4
+ 381 0002 85B0     		sub	sp, sp, #20
+ 382              	.LCFI30:
+ 383              		.cfi_def_cfa_offset 24
+ 384 0004 00AF     		add	r7, sp, #0
+ 385              	.LCFI31:
+ 386              		.cfi_def_cfa_register 7
+ 387 0006 87ED030A 		vstr.32	s0, [r7, #12]
+ 388 000a C7ED020A 		vstr.32	s1, [r7, #8]
+ 389 000e 87ED011A 		vstr.32	s2, [r7, #4]
+ 100:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     if (Value < minValue)
+ 390              		.loc 1 100 8
+ 391 0012 97ED037A 		vldr.32	s14, [r7, #12]
+ 392 0016 D7ED027A 		vldr.32	s15, [r7, #8]
+ 393 001a B4EEE77A 		vcmpe.f32	s14, s15
+ 394 001e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 395 0022 01D5     		bpl	.L44
+ 101:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return minValue;
+ 396              		.loc 1 101 16
+ 397 0024 BB68     		ldr	r3, [r7, #8]	@ float
+ 398 0026 0BE0     		b	.L39
+ 399              	.L44:
+ 102:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     else if (Value > maxValue)
+ 400              		.loc 1 102 13
+ 401 0028 97ED037A 		vldr.32	s14, [r7, #12]
+ 402 002c D7ED017A 		vldr.32	s15, [r7, #4]
+ 403 0030 B4EEE77A 		vcmpe.f32	s14, s15
+ 404 0034 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 405 0038 01DD     		ble	.L45
+ 103:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return maxValue;
+ 406              		.loc 1 103 16
+ 407 003a 7B68     		ldr	r3, [r7, #4]	@ float
+ 408 003c 00E0     		b	.L39
+ 409              	.L45:
+ 104:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     else
+ 105:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return Value;
+ 410              		.loc 1 105 16
+ 411 003e FB68     		ldr	r3, [r7, #12]	@ float
+ 412              	.L39:
+ 106:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 413              		.loc 1 106 1
+ 414 0040 07EE903A 		vmov	s15, r3
+ 415 0044 B0EE670A 		vmov.f32	s0, s15
+ 416 0048 1437     		adds	r7, r7, #20
+ 417              	.LCFI32:
+ 418              		.cfi_def_cfa_offset 4
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 10
+
+
+ 419 004a BD46     		mov	sp, r7
+ 420              	.LCFI33:
+ 421              		.cfi_def_cfa_register 13
+ 422              		@ sp needed
+ 423 004c 5DF8047B 		ldr	r7, [sp], #4
+ 424              	.LCFI34:
+ 425              		.cfi_restore 7
+ 426              		.cfi_def_cfa_offset 0
+ 427 0050 7047     		bx	lr
+ 428              		.cfi_endproc
+ 429              	.LFE188:
+ 431              		.section	.text.int16_constrain,"ax",%progbits
+ 432              		.align	1
+ 433              		.global	int16_constrain
+ 434              		.syntax unified
+ 435              		.thumb
+ 436              		.thumb_func
+ 438              	int16_constrain:
+ 439              	.LFB189:
+ 107:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 108:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 限幅函数
+ 109:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** int16_t int16_constrain(int16_t Value, int16_t minValue, int16_t maxValue)
+ 110:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 440              		.loc 1 110 1
+ 441              		.cfi_startproc
+ 442              		@ args = 0, pretend = 0, frame = 8
+ 443              		@ frame_needed = 1, uses_anonymous_args = 0
+ 444              		@ link register save eliminated.
+ 445 0000 80B4     		push	{r7}
+ 446              	.LCFI35:
+ 447              		.cfi_def_cfa_offset 4
+ 448              		.cfi_offset 7, -4
+ 449 0002 83B0     		sub	sp, sp, #12
+ 450              	.LCFI36:
+ 451              		.cfi_def_cfa_offset 16
+ 452 0004 00AF     		add	r7, sp, #0
+ 453              	.LCFI37:
+ 454              		.cfi_def_cfa_register 7
+ 455 0006 0346     		mov	r3, r0
+ 456 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 457 000a 0B46     		mov	r3, r1	@ movhi
+ 458 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 459 000e 1346     		mov	r3, r2	@ movhi
+ 460 0010 7B80     		strh	r3, [r7, #2]	@ movhi
+ 111:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     if (Value < minValue)
+ 461              		.loc 1 111 8
+ 462 0012 B7F90620 		ldrsh	r2, [r7, #6]
+ 463 0016 B7F90430 		ldrsh	r3, [r7, #4]
+ 464 001a 9A42     		cmp	r2, r3
+ 465 001c 02DA     		bge	.L47
+ 112:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return minValue;
+ 466              		.loc 1 112 16
+ 467 001e B7F90430 		ldrsh	r3, [r7, #4]
+ 468 0022 0AE0     		b	.L48
+ 469              	.L47:
+ 113:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     else if (Value > maxValue)
+ 470              		.loc 1 113 13
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 11
+
+
+ 471 0024 B7F90620 		ldrsh	r2, [r7, #6]
+ 472 0028 B7F90230 		ldrsh	r3, [r7, #2]
+ 473 002c 9A42     		cmp	r2, r3
+ 474 002e 02DD     		ble	.L49
+ 114:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return maxValue;
+ 475              		.loc 1 114 16
+ 476 0030 B7F90230 		ldrsh	r3, [r7, #2]
+ 477 0034 01E0     		b	.L48
+ 478              	.L49:
+ 115:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     else
+ 116:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return Value;
+ 479              		.loc 1 116 16
+ 480 0036 B7F90630 		ldrsh	r3, [r7, #6]
+ 481              	.L48:
+ 117:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 482              		.loc 1 117 1
+ 483 003a 1846     		mov	r0, r3
+ 484 003c 0C37     		adds	r7, r7, #12
+ 485              	.LCFI38:
+ 486              		.cfi_def_cfa_offset 4
+ 487 003e BD46     		mov	sp, r7
+ 488              	.LCFI39:
+ 489              		.cfi_def_cfa_register 13
+ 490              		@ sp needed
+ 491 0040 5DF8047B 		ldr	r7, [sp], #4
+ 492              	.LCFI40:
+ 493              		.cfi_restore 7
+ 494              		.cfi_def_cfa_offset 0
+ 495 0044 7047     		bx	lr
+ 496              		.cfi_endproc
+ 497              	.LFE189:
+ 499              		.section	.text.loop_float_constrain,"ax",%progbits
+ 500              		.align	1
+ 501              		.global	loop_float_constrain
+ 502              		.syntax unified
+ 503              		.thumb
+ 504              		.thumb_func
+ 506              	loop_float_constrain:
+ 507              	.LFB190:
+ 118:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 119:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 循环限幅函数
+ 120:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float loop_float_constrain(float Input, float minValue, float maxValue)
+ 121:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 508              		.loc 1 121 1
+ 509              		.cfi_startproc
+ 510              		@ args = 0, pretend = 0, frame = 24
+ 511              		@ frame_needed = 1, uses_anonymous_args = 0
+ 512              		@ link register save eliminated.
+ 513 0000 80B4     		push	{r7}
+ 514              	.LCFI41:
+ 515              		.cfi_def_cfa_offset 4
+ 516              		.cfi_offset 7, -4
+ 517 0002 87B0     		sub	sp, sp, #28
+ 518              	.LCFI42:
+ 519              		.cfi_def_cfa_offset 32
+ 520 0004 00AF     		add	r7, sp, #0
+ 521              	.LCFI43:
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 12
+
+
+ 522              		.cfi_def_cfa_register 7
+ 523 0006 87ED030A 		vstr.32	s0, [r7, #12]
+ 524 000a C7ED020A 		vstr.32	s1, [r7, #8]
+ 525 000e 87ED011A 		vstr.32	s2, [r7, #4]
+ 122:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     if (maxValue < minValue)
+ 526              		.loc 1 122 8
+ 527 0012 97ED017A 		vldr.32	s14, [r7, #4]
+ 528 0016 D7ED027A 		vldr.32	s15, [r7, #8]
+ 529 001a B4EEE77A 		vcmpe.f32	s14, s15
+ 530 001e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 531 0022 01D5     		bpl	.L65
+ 123:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+ 124:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         return Input;
+ 532              		.loc 1 124 16
+ 533 0024 FB68     		ldr	r3, [r7, #12]	@ float
+ 534 0026 47E0     		b	.L53
+ 535              	.L65:
+ 125:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+ 126:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 127:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     if (Input > maxValue)
+ 536              		.loc 1 127 8
+ 537 0028 97ED037A 		vldr.32	s14, [r7, #12]
+ 538 002c D7ED017A 		vldr.32	s15, [r7, #4]
+ 539 0030 B4EEE77A 		vcmpe.f32	s14, s15
+ 540 0034 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 541 0038 1ADD     		ble	.L66
+ 542              	.LBB2:
+ 128:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+ 129:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         float len = maxValue - minValue;
+ 543              		.loc 1 129 15
+ 544 003a 97ED017A 		vldr.32	s14, [r7, #4]
+ 545 003e D7ED027A 		vldr.32	s15, [r7, #8]
+ 546 0042 77EE677A 		vsub.f32	s15, s14, s15
+ 547 0046 C7ED047A 		vstr.32	s15, [r7, #16]
+ 130:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         while (Input > maxValue)
+ 548              		.loc 1 130 15
+ 549 004a 07E0     		b	.L56
+ 550              	.L57:
+ 131:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         {
+ 132:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****             Input -= len;
+ 551              		.loc 1 132 19
+ 552 004c 97ED037A 		vldr.32	s14, [r7, #12]
+ 553 0050 D7ED047A 		vldr.32	s15, [r7, #16]
+ 554 0054 77EE677A 		vsub.f32	s15, s14, s15
+ 555 0058 C7ED037A 		vstr.32	s15, [r7, #12]
+ 556              	.L56:
+ 130:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         while (Input > maxValue)
+ 557              		.loc 1 130 15
+ 558 005c 97ED037A 		vldr.32	s14, [r7, #12]
+ 559 0060 D7ED017A 		vldr.32	s15, [r7, #4]
+ 560 0064 B4EEE77A 		vcmpe.f32	s14, s15
+ 561 0068 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 562 006c EEDC     		bgt	.L57
+ 563 006e 22E0     		b	.L58
+ 564              	.L66:
+ 565              	.LBE2:
+ 133:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         }
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 13
+
+
+ 134:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+ 135:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     else if (Input < minValue)
+ 566              		.loc 1 135 13
+ 567 0070 97ED037A 		vldr.32	s14, [r7, #12]
+ 568 0074 D7ED027A 		vldr.32	s15, [r7, #8]
+ 569 0078 B4EEE77A 		vcmpe.f32	s14, s15
+ 570 007c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 571 0080 19D5     		bpl	.L58
+ 572              	.LBB3:
+ 136:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+ 137:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         float len = maxValue - minValue;
+ 573              		.loc 1 137 15
+ 574 0082 97ED017A 		vldr.32	s14, [r7, #4]
+ 575 0086 D7ED027A 		vldr.32	s15, [r7, #8]
+ 576 008a 77EE677A 		vsub.f32	s15, s14, s15
+ 577 008e C7ED057A 		vstr.32	s15, [r7, #20]
+ 138:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         while (Input < minValue)
+ 578              		.loc 1 138 15
+ 579 0092 07E0     		b	.L60
+ 580              	.L61:
+ 139:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         {
+ 140:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****             Input += len;
+ 581              		.loc 1 140 19
+ 582 0094 97ED037A 		vldr.32	s14, [r7, #12]
+ 583 0098 D7ED057A 		vldr.32	s15, [r7, #20]
+ 584 009c 77EE277A 		vadd.f32	s15, s14, s15
+ 585 00a0 C7ED037A 		vstr.32	s15, [r7, #12]
+ 586              	.L60:
+ 138:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         while (Input < minValue)
+ 587              		.loc 1 138 15
+ 588 00a4 97ED037A 		vldr.32	s14, [r7, #12]
+ 589 00a8 D7ED027A 		vldr.32	s15, [r7, #8]
+ 590 00ac B4EEE77A 		vcmpe.f32	s14, s15
+ 591 00b0 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 592 00b4 EED4     		bmi	.L61
+ 593              	.L58:
+ 594              	.LBE3:
+ 141:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         }
+ 142:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+ 143:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return Input;
+ 595              		.loc 1 143 12
+ 596 00b6 FB68     		ldr	r3, [r7, #12]	@ float
+ 597              	.L53:
+ 144:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 598              		.loc 1 144 1
+ 599 00b8 07EE903A 		vmov	s15, r3
+ 600 00bc B0EE670A 		vmov.f32	s0, s15
+ 601 00c0 1C37     		adds	r7, r7, #28
+ 602              	.LCFI44:
+ 603              		.cfi_def_cfa_offset 4
+ 604 00c2 BD46     		mov	sp, r7
+ 605              	.LCFI45:
+ 606              		.cfi_def_cfa_register 13
+ 607              		@ sp needed
+ 608 00c4 5DF8047B 		ldr	r7, [sp], #4
+ 609              	.LCFI46:
+ 610              		.cfi_restore 7
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 14
+
+
+ 611              		.cfi_def_cfa_offset 0
+ 612 00c8 7047     		bx	lr
+ 613              		.cfi_endproc
+ 614              	.LFE190:
+ 616              		.section	.text.theta_format,"ax",%progbits
+ 617              		.align	1
+ 618              		.global	theta_format
+ 619              		.syntax unified
+ 620              		.thumb
+ 621              		.thumb_func
+ 623              	theta_format:
+ 624              	.LFB191:
+ 145:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 146:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 弧度格式化为-PI~PI
+ 147:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 148:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 角度格式化为-180~180
+ 149:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float theta_format(float Ang)
+ 150:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 625              		.loc 1 150 1
+ 626              		.cfi_startproc
+ 627              		@ args = 0, pretend = 0, frame = 8
+ 628              		@ frame_needed = 1, uses_anonymous_args = 0
+ 629 0000 80B5     		push	{r7, lr}
+ 630              	.LCFI47:
+ 631              		.cfi_def_cfa_offset 8
+ 632              		.cfi_offset 7, -8
+ 633              		.cfi_offset 14, -4
+ 634 0002 82B0     		sub	sp, sp, #8
+ 635              	.LCFI48:
+ 636              		.cfi_def_cfa_offset 16
+ 637 0004 00AF     		add	r7, sp, #0
+ 638              	.LCFI49:
+ 639              		.cfi_def_cfa_register 7
+ 640 0006 87ED010A 		vstr.32	s0, [r7, #4]
+ 151:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return loop_float_constrain(Ang, -180.0f, 180.0f);
+ 641              		.loc 1 151 12
+ 642 000a 9FED071A 		vldr.32	s2, .L69
+ 643 000e DFED070A 		vldr.32	s1, .L69+4
+ 644 0012 97ED010A 		vldr.32	s0, [r7, #4]
+ 645 0016 FFF7FEFF 		bl	loop_float_constrain
+ 646 001a F0EE407A 		vmov.f32	s15, s0
+ 152:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 647              		.loc 1 152 1
+ 648 001e B0EE670A 		vmov.f32	s0, s15
+ 649 0022 0837     		adds	r7, r7, #8
+ 650              	.LCFI50:
+ 651              		.cfi_def_cfa_offset 8
+ 652 0024 BD46     		mov	sp, r7
+ 653              	.LCFI51:
+ 654              		.cfi_def_cfa_register 13
+ 655              		@ sp needed
+ 656 0026 80BD     		pop	{r7, pc}
+ 657              	.L70:
+ 658              		.align	2
+ 659              	.L69:
+ 660 0028 00003443 		.word	1127481344
+ 661 002c 000034C3 		.word	-1020002304
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 15
+
+
+ 662              		.cfi_endproc
+ 663              	.LFE191:
+ 665              		.section	.text.float_rounding,"ax",%progbits
+ 666              		.align	1
+ 667              		.global	float_rounding
+ 668              		.syntax unified
+ 669              		.thumb
+ 670              		.thumb_func
+ 672              	float_rounding:
+ 673              	.LFB192:
+ 153:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 154:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** int float_rounding(float raw)
+ 155:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 674              		.loc 1 155 1
+ 675              		.cfi_startproc
+ 676              		@ args = 0, pretend = 0, frame = 8
+ 677              		@ frame_needed = 1, uses_anonymous_args = 0
+ 678              		@ link register save eliminated.
+ 679 0000 80B4     		push	{r7}
+ 680              	.LCFI52:
+ 681              		.cfi_def_cfa_offset 4
+ 682              		.cfi_offset 7, -4
+ 683 0002 83B0     		sub	sp, sp, #12
+ 684              	.LCFI53:
+ 685              		.cfi_def_cfa_offset 16
+ 686 0004 00AF     		add	r7, sp, #0
+ 687              	.LCFI54:
+ 688              		.cfi_def_cfa_register 7
+ 689 0006 87ED010A 		vstr.32	s0, [r7, #4]
+ 156:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     static int integer;
+ 157:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     static float decimal;
+ 158:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     integer = (int)raw;
+ 690              		.loc 1 158 15
+ 691 000a D7ED017A 		vldr.32	s15, [r7, #4]
+ 692 000e FDEEE77A 		vcvt.s32.f32	s15, s15
+ 693 0012 17EE902A 		vmov	r2, s15	@ int
+ 694              		.loc 1 158 13
+ 695 0016 134B     		ldr	r3, .L76
+ 696 0018 1A60     		str	r2, [r3]
+ 159:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     decimal = raw - integer;
+ 697              		.loc 1 159 19
+ 698 001a 124B     		ldr	r3, .L76
+ 699 001c 1B68     		ldr	r3, [r3]
+ 700 001e 07EE903A 		vmov	s15, r3	@ int
+ 701 0022 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 702 0026 97ED017A 		vldr.32	s14, [r7, #4]
+ 703 002a 77EE677A 		vsub.f32	s15, s14, s15
+ 704              		.loc 1 159 13
+ 705 002e 0E4B     		ldr	r3, .L76+4
+ 706 0030 C3ED007A 		vstr.32	s15, [r3]
+ 160:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     if (decimal > 0.5f)
+ 707              		.loc 1 160 17
+ 708 0034 0C4B     		ldr	r3, .L76+4
+ 709 0036 D3ED007A 		vldr.32	s15, [r3]
+ 710              		.loc 1 160 8
+ 711 003a B6EE007A 		vmov.f32	s14, #5.0e-1
+ 712 003e F4EEC77A 		vcmpe.f32	s15, s14
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 16
+
+
+ 713 0042 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 714 0046 04DD     		ble	.L72
+ 161:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         integer++;
+ 715              		.loc 1 161 16
+ 716 0048 064B     		ldr	r3, .L76
+ 717 004a 1B68     		ldr	r3, [r3]
+ 718 004c 0133     		adds	r3, r3, #1
+ 719 004e 054A     		ldr	r2, .L76
+ 720 0050 1360     		str	r3, [r2]
+ 721              	.L72:
+ 162:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return integer;
+ 722              		.loc 1 162 12
+ 723 0052 044B     		ldr	r3, .L76
+ 724 0054 1B68     		ldr	r3, [r3]
+ 163:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 725              		.loc 1 163 1
+ 726 0056 1846     		mov	r0, r3
+ 727 0058 0C37     		adds	r7, r7, #12
+ 728              	.LCFI55:
+ 729              		.cfi_def_cfa_offset 4
+ 730 005a BD46     		mov	sp, r7
+ 731              	.LCFI56:
+ 732              		.cfi_def_cfa_register 13
+ 733              		@ sp needed
+ 734 005c 5DF8047B 		ldr	r7, [sp], #4
+ 735              	.LCFI57:
+ 736              		.cfi_restore 7
+ 737              		.cfi_def_cfa_offset 0
+ 738 0060 7047     		bx	lr
+ 739              	.L77:
+ 740 0062 00BF     		.align	2
+ 741              	.L76:
+ 742 0064 00000000 		.word	integer.1
+ 743 0068 00000000 		.word	decimal.0
+ 744              		.cfi_endproc
+ 745              	.LFE192:
+ 747              		.section	.text.Norm3d,"ax",%progbits
+ 748              		.align	1
+ 749              		.global	Norm3d
+ 750              		.syntax unified
+ 751              		.thumb
+ 752              		.thumb_func
+ 754              	Norm3d:
+ 755              	.LFB193:
+ 164:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 165:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 三维向量归一化
+ 166:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float *Norm3d(float *v)
+ 167:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 756              		.loc 1 167 1
+ 757              		.cfi_startproc
+ 758              		@ args = 0, pretend = 0, frame = 16
+ 759              		@ frame_needed = 1, uses_anonymous_args = 0
+ 760 0000 80B5     		push	{r7, lr}
+ 761              	.LCFI58:
+ 762              		.cfi_def_cfa_offset 8
+ 763              		.cfi_offset 7, -8
+ 764              		.cfi_offset 14, -4
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 17
+
+
+ 765 0002 84B0     		sub	sp, sp, #16
+ 766              	.LCFI59:
+ 767              		.cfi_def_cfa_offset 24
+ 768 0004 00AF     		add	r7, sp, #0
+ 769              	.LCFI60:
+ 770              		.cfi_def_cfa_register 7
+ 771 0006 7860     		str	r0, [r7, #4]
+ 168:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     float len = Sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+ 772              		.loc 1 168 23
+ 773 0008 7B68     		ldr	r3, [r7, #4]
+ 774 000a 93ED007A 		vldr.32	s14, [r3]
+ 775              		.loc 1 168 30
+ 776 000e 7B68     		ldr	r3, [r7, #4]
+ 777 0010 D3ED007A 		vldr.32	s15, [r3]
+ 778              		.loc 1 168 27
+ 779 0014 27EE277A 		vmul.f32	s14, s14, s15
+ 780              		.loc 1 168 37
+ 781 0018 7B68     		ldr	r3, [r7, #4]
+ 782 001a 0433     		adds	r3, r3, #4
+ 783 001c D3ED006A 		vldr.32	s13, [r3]
+ 784              		.loc 1 168 44
+ 785 0020 7B68     		ldr	r3, [r7, #4]
+ 786 0022 0433     		adds	r3, r3, #4
+ 787 0024 D3ED007A 		vldr.32	s15, [r3]
+ 788              		.loc 1 168 41
+ 789 0028 66EEA77A 		vmul.f32	s15, s13, s15
+ 790              		.loc 1 168 34
+ 791 002c 37EE277A 		vadd.f32	s14, s14, s15
+ 792              		.loc 1 168 51
+ 793 0030 7B68     		ldr	r3, [r7, #4]
+ 794 0032 0833     		adds	r3, r3, #8
+ 795 0034 D3ED006A 		vldr.32	s13, [r3]
+ 796              		.loc 1 168 58
+ 797 0038 7B68     		ldr	r3, [r7, #4]
+ 798 003a 0833     		adds	r3, r3, #8
+ 799 003c D3ED007A 		vldr.32	s15, [r3]
+ 800              		.loc 1 168 55
+ 801 0040 66EEA77A 		vmul.f32	s15, s13, s15
+ 802              		.loc 1 168 17
+ 803 0044 77EE277A 		vadd.f32	s15, s14, s15
+ 804 0048 B0EE670A 		vmov.f32	s0, s15
+ 805 004c FFF7FEFF 		bl	Sqrt
+ 806 0050 87ED030A 		vstr.32	s0, [r7, #12]
+ 169:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     v[0] /= len;
+ 807              		.loc 1 169 10
+ 808 0054 7B68     		ldr	r3, [r7, #4]
+ 809 0056 D3ED006A 		vldr.32	s13, [r3]
+ 810 005a 97ED037A 		vldr.32	s14, [r7, #12]
+ 811 005e C6EE877A 		vdiv.f32	s15, s13, s14
+ 812 0062 7B68     		ldr	r3, [r7, #4]
+ 813 0064 C3ED007A 		vstr.32	s15, [r3]
+ 170:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     v[1] /= len;
+ 814              		.loc 1 170 10
+ 815 0068 7B68     		ldr	r3, [r7, #4]
+ 816 006a 0433     		adds	r3, r3, #4
+ 817 006c D3ED006A 		vldr.32	s13, [r3]
+ 818 0070 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 18
+
+
+ 819 0072 0433     		adds	r3, r3, #4
+ 820 0074 97ED037A 		vldr.32	s14, [r7, #12]
+ 821 0078 C6EE877A 		vdiv.f32	s15, s13, s14
+ 822 007c C3ED007A 		vstr.32	s15, [r3]
+ 171:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     v[2] /= len;
+ 823              		.loc 1 171 10
+ 824 0080 7B68     		ldr	r3, [r7, #4]
+ 825 0082 0833     		adds	r3, r3, #8
+ 826 0084 D3ED006A 		vldr.32	s13, [r3]
+ 827 0088 7B68     		ldr	r3, [r7, #4]
+ 828 008a 0833     		adds	r3, r3, #8
+ 829 008c 97ED037A 		vldr.32	s14, [r7, #12]
+ 830 0090 C6EE877A 		vdiv.f32	s15, s13, s14
+ 831 0094 C3ED007A 		vstr.32	s15, [r3]
+ 172:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return v;
+ 832              		.loc 1 172 12
+ 833 0098 7B68     		ldr	r3, [r7, #4]
+ 173:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 834              		.loc 1 173 1
+ 835 009a 1846     		mov	r0, r3
+ 836 009c 1037     		adds	r7, r7, #16
+ 837              	.LCFI61:
+ 838              		.cfi_def_cfa_offset 8
+ 839 009e BD46     		mov	sp, r7
+ 840              	.LCFI62:
+ 841              		.cfi_def_cfa_register 13
+ 842              		@ sp needed
+ 843 00a0 80BD     		pop	{r7, pc}
+ 844              		.cfi_endproc
+ 845              	.LFE193:
+ 847              		.section	.text.NormOf3d,"ax",%progbits
+ 848              		.align	1
+ 849              		.global	NormOf3d
+ 850              		.syntax unified
+ 851              		.thumb
+ 852              		.thumb_func
+ 854              	NormOf3d:
+ 855              	.LFB194:
+ 174:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 175:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 计算模长
+ 176:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float NormOf3d(float *v)
+ 177:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 856              		.loc 1 177 1
+ 857              		.cfi_startproc
+ 858              		@ args = 0, pretend = 0, frame = 8
+ 859              		@ frame_needed = 1, uses_anonymous_args = 0
+ 860 0000 80B5     		push	{r7, lr}
+ 861              	.LCFI63:
+ 862              		.cfi_def_cfa_offset 8
+ 863              		.cfi_offset 7, -8
+ 864              		.cfi_offset 14, -4
+ 865 0002 82B0     		sub	sp, sp, #8
+ 866              	.LCFI64:
+ 867              		.cfi_def_cfa_offset 16
+ 868 0004 00AF     		add	r7, sp, #0
+ 869              	.LCFI65:
+ 870              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 19
+
+
+ 871 0006 7860     		str	r0, [r7, #4]
+ 178:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return Sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+ 872              		.loc 1 178 18
+ 873 0008 7B68     		ldr	r3, [r7, #4]
+ 874 000a 93ED007A 		vldr.32	s14, [r3]
+ 875              		.loc 1 178 25
+ 876 000e 7B68     		ldr	r3, [r7, #4]
+ 877 0010 D3ED007A 		vldr.32	s15, [r3]
+ 878              		.loc 1 178 22
+ 879 0014 27EE277A 		vmul.f32	s14, s14, s15
+ 880              		.loc 1 178 32
+ 881 0018 7B68     		ldr	r3, [r7, #4]
+ 882 001a 0433     		adds	r3, r3, #4
+ 883 001c D3ED006A 		vldr.32	s13, [r3]
+ 884              		.loc 1 178 39
+ 885 0020 7B68     		ldr	r3, [r7, #4]
+ 886 0022 0433     		adds	r3, r3, #4
+ 887 0024 D3ED007A 		vldr.32	s15, [r3]
+ 888              		.loc 1 178 36
+ 889 0028 66EEA77A 		vmul.f32	s15, s13, s15
+ 890              		.loc 1 178 29
+ 891 002c 37EE277A 		vadd.f32	s14, s14, s15
+ 892              		.loc 1 178 46
+ 893 0030 7B68     		ldr	r3, [r7, #4]
+ 894 0032 0833     		adds	r3, r3, #8
+ 895 0034 D3ED006A 		vldr.32	s13, [r3]
+ 896              		.loc 1 178 53
+ 897 0038 7B68     		ldr	r3, [r7, #4]
+ 898 003a 0833     		adds	r3, r3, #8
+ 899 003c D3ED007A 		vldr.32	s15, [r3]
+ 900              		.loc 1 178 50
+ 901 0040 66EEA77A 		vmul.f32	s15, s13, s15
+ 902              		.loc 1 178 12
+ 903 0044 77EE277A 		vadd.f32	s15, s14, s15
+ 904 0048 B0EE670A 		vmov.f32	s0, s15
+ 905 004c FFF7FEFF 		bl	Sqrt
+ 906 0050 F0EE407A 		vmov.f32	s15, s0
+ 179:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 907              		.loc 1 179 1
+ 908 0054 B0EE670A 		vmov.f32	s0, s15
+ 909 0058 0837     		adds	r7, r7, #8
+ 910              	.LCFI66:
+ 911              		.cfi_def_cfa_offset 8
+ 912 005a BD46     		mov	sp, r7
+ 913              	.LCFI67:
+ 914              		.cfi_def_cfa_register 13
+ 915              		@ sp needed
+ 916 005c 80BD     		pop	{r7, pc}
+ 917              		.cfi_endproc
+ 918              	.LFE194:
+ 920              		.section	.text.Cross3d,"ax",%progbits
+ 921              		.align	1
+ 922              		.global	Cross3d
+ 923              		.syntax unified
+ 924              		.thumb
+ 925              		.thumb_func
+ 927              	Cross3d:
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 20
+
+
+ 928              	.LFB195:
+ 180:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 181:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 三维向量叉乘v1 x v2
+ 182:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** void Cross3d(float *v1, float *v2, float *res)
+ 183:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 929              		.loc 1 183 1
+ 930              		.cfi_startproc
+ 931              		@ args = 0, pretend = 0, frame = 16
+ 932              		@ frame_needed = 1, uses_anonymous_args = 0
+ 933              		@ link register save eliminated.
+ 934 0000 80B4     		push	{r7}
+ 935              	.LCFI68:
+ 936              		.cfi_def_cfa_offset 4
+ 937              		.cfi_offset 7, -4
+ 938 0002 85B0     		sub	sp, sp, #20
+ 939              	.LCFI69:
+ 940              		.cfi_def_cfa_offset 24
+ 941 0004 00AF     		add	r7, sp, #0
+ 942              	.LCFI70:
+ 943              		.cfi_def_cfa_register 7
+ 944 0006 F860     		str	r0, [r7, #12]
+ 945 0008 B960     		str	r1, [r7, #8]
+ 946 000a 7A60     		str	r2, [r7, #4]
+ 184:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     res[0] = v1[1] * v2[2] - v1[2] * v2[1];
+ 947              		.loc 1 184 16
+ 948 000c FB68     		ldr	r3, [r7, #12]
+ 949 000e 0433     		adds	r3, r3, #4
+ 950 0010 93ED007A 		vldr.32	s14, [r3]
+ 951              		.loc 1 184 24
+ 952 0014 BB68     		ldr	r3, [r7, #8]
+ 953 0016 0833     		adds	r3, r3, #8
+ 954 0018 D3ED007A 		vldr.32	s15, [r3]
+ 955              		.loc 1 184 20
+ 956 001c 27EE277A 		vmul.f32	s14, s14, s15
+ 957              		.loc 1 184 32
+ 958 0020 FB68     		ldr	r3, [r7, #12]
+ 959 0022 0833     		adds	r3, r3, #8
+ 960 0024 D3ED006A 		vldr.32	s13, [r3]
+ 961              		.loc 1 184 40
+ 962 0028 BB68     		ldr	r3, [r7, #8]
+ 963 002a 0433     		adds	r3, r3, #4
+ 964 002c D3ED007A 		vldr.32	s15, [r3]
+ 965              		.loc 1 184 36
+ 966 0030 66EEA77A 		vmul.f32	s15, s13, s15
+ 967              		.loc 1 184 28
+ 968 0034 77EE677A 		vsub.f32	s15, s14, s15
+ 969              		.loc 1 184 12
+ 970 0038 7B68     		ldr	r3, [r7, #4]
+ 971 003a C3ED007A 		vstr.32	s15, [r3]
+ 185:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     res[1] = v1[2] * v2[0] - v1[0] * v2[2];
+ 972              		.loc 1 185 16
+ 973 003e FB68     		ldr	r3, [r7, #12]
+ 974 0040 0833     		adds	r3, r3, #8
+ 975 0042 93ED007A 		vldr.32	s14, [r3]
+ 976              		.loc 1 185 24
+ 977 0046 BB68     		ldr	r3, [r7, #8]
+ 978 0048 D3ED007A 		vldr.32	s15, [r3]
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 21
+
+
+ 979              		.loc 1 185 20
+ 980 004c 27EE277A 		vmul.f32	s14, s14, s15
+ 981              		.loc 1 185 32
+ 982 0050 FB68     		ldr	r3, [r7, #12]
+ 983 0052 D3ED006A 		vldr.32	s13, [r3]
+ 984              		.loc 1 185 40
+ 985 0056 BB68     		ldr	r3, [r7, #8]
+ 986 0058 0833     		adds	r3, r3, #8
+ 987 005a D3ED007A 		vldr.32	s15, [r3]
+ 988              		.loc 1 185 36
+ 989 005e 66EEA77A 		vmul.f32	s15, s13, s15
+ 990              		.loc 1 185 8
+ 991 0062 7B68     		ldr	r3, [r7, #4]
+ 992 0064 0433     		adds	r3, r3, #4
+ 993              		.loc 1 185 28
+ 994 0066 77EE677A 		vsub.f32	s15, s14, s15
+ 995              		.loc 1 185 12
+ 996 006a C3ED007A 		vstr.32	s15, [r3]
+ 186:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     res[2] = v1[0] * v2[1] - v1[1] * v2[0];
+ 997              		.loc 1 186 16
+ 998 006e FB68     		ldr	r3, [r7, #12]
+ 999 0070 93ED007A 		vldr.32	s14, [r3]
+ 1000              		.loc 1 186 24
+ 1001 0074 BB68     		ldr	r3, [r7, #8]
+ 1002 0076 0433     		adds	r3, r3, #4
+ 1003 0078 D3ED007A 		vldr.32	s15, [r3]
+ 1004              		.loc 1 186 20
+ 1005 007c 27EE277A 		vmul.f32	s14, s14, s15
+ 1006              		.loc 1 186 32
+ 1007 0080 FB68     		ldr	r3, [r7, #12]
+ 1008 0082 0433     		adds	r3, r3, #4
+ 1009 0084 D3ED006A 		vldr.32	s13, [r3]
+ 1010              		.loc 1 186 40
+ 1011 0088 BB68     		ldr	r3, [r7, #8]
+ 1012 008a D3ED007A 		vldr.32	s15, [r3]
+ 1013              		.loc 1 186 36
+ 1014 008e 66EEA77A 		vmul.f32	s15, s13, s15
+ 1015              		.loc 1 186 8
+ 1016 0092 7B68     		ldr	r3, [r7, #4]
+ 1017 0094 0833     		adds	r3, r3, #8
+ 1018              		.loc 1 186 28
+ 1019 0096 77EE677A 		vsub.f32	s15, s14, s15
+ 1020              		.loc 1 186 12
+ 1021 009a C3ED007A 		vstr.32	s15, [r3]
+ 187:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 1022              		.loc 1 187 1
+ 1023 009e 00BF     		nop
+ 1024 00a0 1437     		adds	r7, r7, #20
+ 1025              	.LCFI71:
+ 1026              		.cfi_def_cfa_offset 4
+ 1027 00a2 BD46     		mov	sp, r7
+ 1028              	.LCFI72:
+ 1029              		.cfi_def_cfa_register 13
+ 1030              		@ sp needed
+ 1031 00a4 5DF8047B 		ldr	r7, [sp], #4
+ 1032              	.LCFI73:
+ 1033              		.cfi_restore 7
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 22
+
+
+ 1034              		.cfi_def_cfa_offset 0
+ 1035 00a8 7047     		bx	lr
+ 1036              		.cfi_endproc
+ 1037              	.LFE195:
+ 1039              		.section	.text.Dot3d,"ax",%progbits
+ 1040              		.align	1
+ 1041              		.global	Dot3d
+ 1042              		.syntax unified
+ 1043              		.thumb
+ 1044              		.thumb_func
+ 1046              	Dot3d:
+ 1047              	.LFB196:
+ 188:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 189:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 三维向量点乘
+ 190:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float Dot3d(float *v1, float *v2)
+ 191:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 1048              		.loc 1 191 1
+ 1049              		.cfi_startproc
+ 1050              		@ args = 0, pretend = 0, frame = 8
+ 1051              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1052              		@ link register save eliminated.
+ 1053 0000 80B4     		push	{r7}
+ 1054              	.LCFI74:
+ 1055              		.cfi_def_cfa_offset 4
+ 1056              		.cfi_offset 7, -4
+ 1057 0002 83B0     		sub	sp, sp, #12
+ 1058              	.LCFI75:
+ 1059              		.cfi_def_cfa_offset 16
+ 1060 0004 00AF     		add	r7, sp, #0
+ 1061              	.LCFI76:
+ 1062              		.cfi_def_cfa_register 7
+ 1063 0006 7860     		str	r0, [r7, #4]
+ 1064 0008 3960     		str	r1, [r7]
+ 192:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2];
+ 1065              		.loc 1 192 14
+ 1066 000a 7B68     		ldr	r3, [r7, #4]
+ 1067 000c 93ED007A 		vldr.32	s14, [r3]
+ 1068              		.loc 1 192 22
+ 1069 0010 3B68     		ldr	r3, [r7]
+ 1070 0012 D3ED007A 		vldr.32	s15, [r3]
+ 1071              		.loc 1 192 18
+ 1072 0016 27EE277A 		vmul.f32	s14, s14, s15
+ 1073              		.loc 1 192 30
+ 1074 001a 7B68     		ldr	r3, [r7, #4]
+ 1075 001c 0433     		adds	r3, r3, #4
+ 1076 001e D3ED006A 		vldr.32	s13, [r3]
+ 1077              		.loc 1 192 38
+ 1078 0022 3B68     		ldr	r3, [r7]
+ 1079 0024 0433     		adds	r3, r3, #4
+ 1080 0026 D3ED007A 		vldr.32	s15, [r3]
+ 1081              		.loc 1 192 34
+ 1082 002a 66EEA77A 		vmul.f32	s15, s13, s15
+ 1083              		.loc 1 192 26
+ 1084 002e 37EE277A 		vadd.f32	s14, s14, s15
+ 1085              		.loc 1 192 46
+ 1086 0032 7B68     		ldr	r3, [r7, #4]
+ 1087 0034 0833     		adds	r3, r3, #8
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 23
+
+
+ 1088 0036 D3ED006A 		vldr.32	s13, [r3]
+ 1089              		.loc 1 192 54
+ 1090 003a 3B68     		ldr	r3, [r7]
+ 1091 003c 0833     		adds	r3, r3, #8
+ 1092 003e D3ED007A 		vldr.32	s15, [r3]
+ 1093              		.loc 1 192 50
+ 1094 0042 66EEA77A 		vmul.f32	s15, s13, s15
+ 1095              		.loc 1 192 42
+ 1096 0046 77EE277A 		vadd.f32	s15, s14, s15
+ 193:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 1097              		.loc 1 193 1
+ 1098 004a B0EE670A 		vmov.f32	s0, s15
+ 1099 004e 0C37     		adds	r7, r7, #12
+ 1100              	.LCFI77:
+ 1101              		.cfi_def_cfa_offset 4
+ 1102 0050 BD46     		mov	sp, r7
+ 1103              	.LCFI78:
+ 1104              		.cfi_def_cfa_register 13
+ 1105              		@ sp needed
+ 1106 0052 5DF8047B 		ldr	r7, [sp], #4
+ 1107              	.LCFI79:
+ 1108              		.cfi_restore 7
+ 1109              		.cfi_def_cfa_offset 0
+ 1110 0056 7047     		bx	lr
+ 1111              		.cfi_endproc
+ 1112              	.LFE196:
+ 1114              		.section	.text.AverageFilter,"ax",%progbits
+ 1115              		.align	1
+ 1116              		.global	AverageFilter
+ 1117              		.syntax unified
+ 1118              		.thumb
+ 1119              		.thumb_func
+ 1121              	AverageFilter:
+ 1122              	.LFB197:
+ 194:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 195:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** // 均值滤波,删除buffer中的最后一个元素,填入新的元素并求平均值
+ 196:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** float AverageFilter(float new_data, float *buf, uint8_t len)
+ 197:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 1123              		.loc 1 197 1
+ 1124              		.cfi_startproc
+ 1125              		@ args = 0, pretend = 0, frame = 24
+ 1126              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1127              		@ link register save eliminated.
+ 1128 0000 80B4     		push	{r7}
+ 1129              	.LCFI80:
+ 1130              		.cfi_def_cfa_offset 4
+ 1131              		.cfi_offset 7, -4
+ 1132 0002 87B0     		sub	sp, sp, #28
+ 1133              	.LCFI81:
+ 1134              		.cfi_def_cfa_offset 32
+ 1135 0004 00AF     		add	r7, sp, #0
+ 1136              	.LCFI82:
+ 1137              		.cfi_def_cfa_register 7
+ 1138 0006 87ED030A 		vstr.32	s0, [r7, #12]
+ 1139 000a B860     		str	r0, [r7, #8]
+ 1140 000c 0B46     		mov	r3, r1
+ 1141 000e FB71     		strb	r3, [r7, #7]
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 24
+
+
+ 198:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     float sum = 0;
+ 1142              		.loc 1 198 11
+ 1143 0010 4FF00003 		mov	r3, #0
+ 1144 0014 7B61     		str	r3, [r7, #20]	@ float
+ 1145              	.LBB4:
+ 199:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     for (uint8_t i = 0; i < len - 1; i++)
+ 1146              		.loc 1 199 18
+ 1147 0016 0023     		movs	r3, #0
+ 1148 0018 FB74     		strb	r3, [r7, #19]
+ 1149              		.loc 1 199 5
+ 1150 001a 19E0     		b	.L86
+ 1151              	.L87:
+ 200:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     {
+ 201:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         buf[i] = buf[i + 1];
+ 1152              		.loc 1 201 21 discriminator 3
+ 1153 001c FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+ 1154 001e 0133     		adds	r3, r3, #1
+ 1155 0020 9B00     		lsls	r3, r3, #2
+ 1156 0022 BA68     		ldr	r2, [r7, #8]
+ 1157 0024 1A44     		add	r2, r2, r3
+ 1158              		.loc 1 201 12 discriminator 3
+ 1159 0026 FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+ 1160 0028 9B00     		lsls	r3, r3, #2
+ 1161 002a B968     		ldr	r1, [r7, #8]
+ 1162 002c 0B44     		add	r3, r3, r1
+ 1163              		.loc 1 201 21 discriminator 3
+ 1164 002e 1268     		ldr	r2, [r2]	@ float
+ 1165              		.loc 1 201 16 discriminator 3
+ 1166 0030 1A60     		str	r2, [r3]	@ float
+ 202:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****         sum += buf[i];
+ 1167              		.loc 1 202 19 discriminator 3
+ 1168 0032 FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+ 1169 0034 9B00     		lsls	r3, r3, #2
+ 1170 0036 BA68     		ldr	r2, [r7, #8]
+ 1171 0038 1344     		add	r3, r3, r2
+ 1172 003a D3ED007A 		vldr.32	s15, [r3]
+ 1173              		.loc 1 202 13 discriminator 3
+ 1174 003e 97ED057A 		vldr.32	s14, [r7, #20]
+ 1175 0042 77EE277A 		vadd.f32	s15, s14, s15
+ 1176 0046 C7ED057A 		vstr.32	s15, [r7, #20]
+ 199:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     for (uint8_t i = 0; i < len - 1; i++)
+ 1177              		.loc 1 199 39 discriminator 3
+ 1178 004a FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+ 1179 004c 0133     		adds	r3, r3, #1
+ 1180 004e FB74     		strb	r3, [r7, #19]
+ 1181              	.L86:
+ 199:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     for (uint8_t i = 0; i < len - 1; i++)
+ 1182              		.loc 1 199 27 discriminator 1
+ 1183 0050 FA7C     		ldrb	r2, [r7, #19]	@ zero_extendqisi2
+ 199:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     for (uint8_t i = 0; i < len - 1; i++)
+ 1184              		.loc 1 199 33 discriminator 1
+ 1185 0052 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1186 0054 013B     		subs	r3, r3, #1
+ 199:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     for (uint8_t i = 0; i < len - 1; i++)
+ 1187              		.loc 1 199 5 discriminator 1
+ 1188 0056 9A42     		cmp	r2, r3
+ 1189 0058 E0DB     		blt	.L87
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 25
+
+
+ 1190              	.LBE4:
+ 203:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     }
+ 204:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     buf[len - 1] = new_data;
+ 1191              		.loc 1 204 8
+ 1192 005a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1193 005c 03F18043 		add	r3, r3, #1073741824
+ 1194 0060 013B     		subs	r3, r3, #1
+ 1195 0062 9B00     		lsls	r3, r3, #2
+ 1196 0064 BA68     		ldr	r2, [r7, #8]
+ 1197 0066 1344     		add	r3, r3, r2
+ 1198              		.loc 1 204 18
+ 1199 0068 FA68     		ldr	r2, [r7, #12]	@ float
+ 1200 006a 1A60     		str	r2, [r3]	@ float
+ 205:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     sum += new_data;
+ 1201              		.loc 1 205 9
+ 1202 006c 97ED057A 		vldr.32	s14, [r7, #20]
+ 1203 0070 D7ED037A 		vldr.32	s15, [r7, #12]
+ 1204 0074 77EE277A 		vadd.f32	s15, s14, s15
+ 1205 0078 C7ED057A 		vstr.32	s15, [r7, #20]
+ 206:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     return sum / len;
+ 1206              		.loc 1 206 16
+ 1207 007c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1208 007e 07EE903A 		vmov	s15, r3	@ int
+ 1209 0082 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 1210 0086 97ED057A 		vldr.32	s14, [r7, #20]
+ 1211 008a C7EE276A 		vdiv.f32	s13, s14, s15
+ 1212 008e F0EE667A 		vmov.f32	s15, s13
+ 207:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 1213              		.loc 1 207 1
+ 1214 0092 B0EE670A 		vmov.f32	s0, s15
+ 1215 0096 1C37     		adds	r7, r7, #28
+ 1216              	.LCFI83:
+ 1217              		.cfi_def_cfa_offset 4
+ 1218 0098 BD46     		mov	sp, r7
+ 1219              	.LCFI84:
+ 1220              		.cfi_def_cfa_register 13
+ 1221              		@ sp needed
+ 1222 009a 5DF8047B 		ldr	r7, [sp], #4
+ 1223              	.LCFI85:
+ 1224              		.cfi_restore 7
+ 1225              		.cfi_def_cfa_offset 0
+ 1226 009e 7047     		bx	lr
+ 1227              		.cfi_endproc
+ 1228              	.LFE197:
+ 1230              		.section	.text.MatInit,"ax",%progbits
+ 1231              		.align	1
+ 1232              		.global	MatInit
+ 1233              		.syntax unified
+ 1234              		.thumb
+ 1235              		.thumb_func
+ 1237              	MatInit:
+ 1238              	.LFB198:
+ 208:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** 
+ 209:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** void MatInit(mat *m, uint8_t row, uint8_t col)
+ 210:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** {
+ 1239              		.loc 1 210 1
+ 1240              		.cfi_startproc
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 26
+
+
+ 1241              		@ args = 0, pretend = 0, frame = 8
+ 1242              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1243 0000 80B5     		push	{r7, lr}
+ 1244              	.LCFI86:
+ 1245              		.cfi_def_cfa_offset 8
+ 1246              		.cfi_offset 7, -8
+ 1247              		.cfi_offset 14, -4
+ 1248 0002 82B0     		sub	sp, sp, #8
+ 1249              	.LCFI87:
+ 1250              		.cfi_def_cfa_offset 16
+ 1251 0004 00AF     		add	r7, sp, #0
+ 1252              	.LCFI88:
+ 1253              		.cfi_def_cfa_register 7
+ 1254 0006 7860     		str	r0, [r7, #4]
+ 1255 0008 0B46     		mov	r3, r1
+ 1256 000a FB70     		strb	r3, [r7, #3]
+ 1257 000c 1346     		mov	r3, r2
+ 1258 000e BB70     		strb	r3, [r7, #2]
+ 211:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     m->numCols = col;
+ 1259              		.loc 1 211 16
+ 1260 0010 BB78     		ldrb	r3, [r7, #2]	@ zero_extendqisi2
+ 1261 0012 9AB2     		uxth	r2, r3
+ 1262 0014 7B68     		ldr	r3, [r7, #4]
+ 1263 0016 5A80     		strh	r2, [r3, #2]	@ movhi
+ 212:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     m->numRows = row;
+ 1264              		.loc 1 212 16
+ 1265 0018 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 1266 001a 9AB2     		uxth	r2, r3
+ 1267 001c 7B68     		ldr	r3, [r7, #4]
+ 1268 001e 1A80     		strh	r2, [r3]	@ movhi
+ 213:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c ****     m->pData = (float *)zmalloc(row * col * sizeof(float));
+ 1269              		.loc 1 213 37
+ 1270 0020 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 1271 0022 BA78     		ldrb	r2, [r7, #2]	@ zero_extendqisi2
+ 1272 0024 02FB03F3 		mul	r3, r2, r3
+ 1273              		.loc 1 213 25
+ 1274 0028 9B00     		lsls	r3, r3, #2
+ 1275 002a 1846     		mov	r0, r3
+ 1276 002c FFF7FEFF 		bl	zmalloc
+ 1277 0030 0246     		mov	r2, r0
+ 1278              		.loc 1 213 14
+ 1279 0032 7B68     		ldr	r3, [r7, #4]
+ 1280 0034 5A60     		str	r2, [r3, #4]
+ 214:ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.c **** }
+ 1281              		.loc 1 214 1
+ 1282 0036 00BF     		nop
+ 1283 0038 0837     		adds	r7, r7, #8
+ 1284              	.LCFI89:
+ 1285              		.cfi_def_cfa_offset 8
+ 1286 003a BD46     		mov	sp, r7
+ 1287              	.LCFI90:
+ 1288              		.cfi_def_cfa_register 13
+ 1289              		@ sp needed
+ 1290 003c 80BD     		pop	{r7, pc}
+ 1291              		.cfi_endproc
+ 1292              	.LFE198:
+ 1294              		.section	.bss.integer.1,"aw",%nobits
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 27
+
+
+ 1295              		.align	2
+ 1298              	integer.1:
+ 1299 0000 00000000 		.space	4
+ 1300              		.section	.bss.decimal.0,"aw",%nobits
+ 1301              		.align	2
+ 1304              	decimal.0:
+ 1305 0000 00000000 		.space	4
+ 1306              		.text
+ 1307              	.Letext0:
+ 1308              		.file 2 "d:\\stm_for_vs\\gcc-arm-none-eabi-10.3-2021.10\\lib\\gcc\\arm-none-eabi\\10.3.1\\include\
+ 1309              		.file 3 "d:\\stm_for_vs\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_default
+ 1310              		.file 4 "d:\\stm_for_vs\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1311              		.file 5 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
+ 1312              		.file 6 "ACE_ECF_25-ACE-ECF-CPP-V1.2/Algorithm/user_maths/cpp_files/user_lib.h"
+ARM GAS  C:\Users\30806\AppData\Local\Temp\ccmtzeag.s 			page 28
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 user_lib.c
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:20     .text.zmalloc:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:26     .text.zmalloc:00000000 zmalloc
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:71     .text.Sqrt:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:77     .text.Sqrt:00000000 Sqrt
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:167    .text.Sqrt:000000ac $d
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:172    .text.abs_limit:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:178    .text.abs_limit:00000000 abs_limit
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:242    .text.sign:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:248    .text.sign:00000000 sign
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:296    .text.sign:00000034 $d
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:301    .text.float_deadband:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:307    .text.float_deadband:00000000 float_deadband
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:364    .text.float_constrain:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:370    .text.float_constrain:00000000 float_constrain
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:432    .text.int16_constrain:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:438    .text.int16_constrain:00000000 int16_constrain
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:500    .text.loop_float_constrain:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:506    .text.loop_float_constrain:00000000 loop_float_constrain
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:617    .text.theta_format:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:623    .text.theta_format:00000000 theta_format
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:660    .text.theta_format:00000028 $d
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:666    .text.float_rounding:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:672    .text.float_rounding:00000000 float_rounding
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:742    .text.float_rounding:00000064 $d
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1298   .bss.integer.1:00000000 integer.1
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1304   .bss.decimal.0:00000000 decimal.0
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:748    .text.Norm3d:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:754    .text.Norm3d:00000000 Norm3d
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:848    .text.NormOf3d:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:854    .text.NormOf3d:00000000 NormOf3d
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:921    .text.Cross3d:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:927    .text.Cross3d:00000000 Cross3d
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1040   .text.Dot3d:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1046   .text.Dot3d:00000000 Dot3d
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1115   .text.AverageFilter:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1121   .text.AverageFilter:00000000 AverageFilter
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1231   .text.MatInit:00000000 $t
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1237   .text.MatInit:00000000 MatInit
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1295   .bss.integer.1:00000000 $d
+C:\Users\30806\AppData\Local\Temp\ccmtzeag.s:1301   .bss.decimal.0:00000000 $d
+
+UNDEFINED SYMBOLS
+malloc
+memset

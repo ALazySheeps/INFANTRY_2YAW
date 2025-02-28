@@ -1,0 +1,474 @@
+ARM GAS  C:\Users\30806\AppData\Local\Temp\cceANLSV.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"freertos.c"
+  14              		.section	.rodata.str1.4,"aMS",%progbits,1
+  15              		.align	2
+  16              	.LC0:
+  17 0000 64656661 		.ascii	"defaultTask\000"
+  17      756C7454 
+  17      61736B00 
+  18              		.align	2
+  19              	.LC2:
+  20 000c 63687373 		.ascii	"chssis_task\000"
+  20      69735F74 
+  20      61736B00 
+  21              		.align	2
+  22              	.LC4:
+  23 0018 73616665 		.ascii	"safe_task\000"
+  23      5F746173 
+  23      6B00
+  24              		.text
+  25              	.Ltext0:
+  26              		.cfi_sections	.debug_frame
+  27              		.section	.text.StartDefaultTask,"ax",%progbits
+  28              		.align	1
+  29              		.global	StartDefaultTask
+  30              		.arch armv7e-m
+  31              		.syntax unified
+  32              		.thumb
+  33              		.thumb_func
+  34              		.fpu fpv4-sp-d16
+  36              	StartDefaultTask:
+  37              	.LFB141:
+  38              		.file 1 "Core/Src/freertos.c"
+   1:Core/Src/freertos.c **** /* USER CODE BEGIN Header */
+   2:Core/Src/freertos.c **** /**
+   3:Core/Src/freertos.c ****   ******************************************************************************
+   4:Core/Src/freertos.c ****   * File Name          : freertos.c
+   5:Core/Src/freertos.c ****   * Description        : Code for freertos applications
+   6:Core/Src/freertos.c ****   ******************************************************************************
+   7:Core/Src/freertos.c ****   * @attention
+   8:Core/Src/freertos.c ****   *
+   9:Core/Src/freertos.c ****   * Copyright (c) 2024 STMicroelectronics.
+  10:Core/Src/freertos.c ****   * All rights reserved.
+  11:Core/Src/freertos.c ****   *
+  12:Core/Src/freertos.c ****   * This software is licensed under terms that can be found in the LICENSE file
+  13:Core/Src/freertos.c ****   * in the root directory of this software component.
+  14:Core/Src/freertos.c ****   * If no LICENSE file comes with this software, it is provided AS-IS.
+ARM GAS  C:\Users\30806\AppData\Local\Temp\cceANLSV.s 			page 2
+
+
+  15:Core/Src/freertos.c ****   *
+  16:Core/Src/freertos.c ****   ******************************************************************************
+  17:Core/Src/freertos.c ****   */
+  18:Core/Src/freertos.c **** /* USER CODE END Header */
+  19:Core/Src/freertos.c **** 
+  20:Core/Src/freertos.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/freertos.c **** #include "FreeRTOS.h"
+  22:Core/Src/freertos.c **** #include "task.h"
+  23:Core/Src/freertos.c **** #include "main.h"
+  24:Core/Src/freertos.c **** #include "cmsis_os.h"
+  25:Core/Src/freertos.c **** 
+  26:Core/Src/freertos.c **** /* Private includes ----------------------------------------------------------*/
+  27:Core/Src/freertos.c **** /* USER CODE BEGIN Includes */
+  28:Core/Src/freertos.c **** 
+  29:Core/Src/freertos.c **** /* USER CODE END Includes */
+  30:Core/Src/freertos.c **** 
+  31:Core/Src/freertos.c **** /* Private typedef -----------------------------------------------------------*/
+  32:Core/Src/freertos.c **** /* USER CODE BEGIN PTD */
+  33:Core/Src/freertos.c **** 
+  34:Core/Src/freertos.c **** /* USER CODE END PTD */
+  35:Core/Src/freertos.c **** 
+  36:Core/Src/freertos.c **** /* Private define ------------------------------------------------------------*/
+  37:Core/Src/freertos.c **** /* USER CODE BEGIN PD */
+  38:Core/Src/freertos.c **** 
+  39:Core/Src/freertos.c **** /* USER CODE END PD */
+  40:Core/Src/freertos.c **** 
+  41:Core/Src/freertos.c **** /* Private macro -------------------------------------------------------------*/
+  42:Core/Src/freertos.c **** /* USER CODE BEGIN PM */
+  43:Core/Src/freertos.c **** 
+  44:Core/Src/freertos.c **** /* USER CODE END PM */
+  45:Core/Src/freertos.c **** 
+  46:Core/Src/freertos.c **** /* Private variables ---------------------------------------------------------*/
+  47:Core/Src/freertos.c **** /* USER CODE BEGIN Variables */
+  48:Core/Src/freertos.c **** 
+  49:Core/Src/freertos.c **** /* USER CODE END Variables */
+  50:Core/Src/freertos.c **** osThreadId defaultTaskHandle;
+  51:Core/Src/freertos.c **** osThreadId chssis_taskHandle;
+  52:Core/Src/freertos.c **** osThreadId safe_taskHandle;
+  53:Core/Src/freertos.c **** 
+  54:Core/Src/freertos.c **** /* Private function prototypes -----------------------------------------------*/
+  55:Core/Src/freertos.c **** /* USER CODE BEGIN FunctionPrototypes */
+  56:Core/Src/freertos.c **** 
+  57:Core/Src/freertos.c **** /* USER CODE END FunctionPrototypes */
+  58:Core/Src/freertos.c **** 
+  59:Core/Src/freertos.c **** void StartDefaultTask(void const * argument);
+  60:Core/Src/freertos.c **** extern void Chassis_Task(void const * argument);
+  61:Core/Src/freertos.c **** extern void Safe_Task(void const * argument);
+  62:Core/Src/freertos.c **** 
+  63:Core/Src/freertos.c **** void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+  64:Core/Src/freertos.c **** 
+  65:Core/Src/freertos.c **** /* GetIdleTaskMemory prototype (linked to static allocation support) */
+  66:Core/Src/freertos.c **** void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskS
+  67:Core/Src/freertos.c **** 
+  68:Core/Src/freertos.c **** /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
+  69:Core/Src/freertos.c **** static StaticTask_t xIdleTaskTCBBuffer;
+  70:Core/Src/freertos.c **** static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
+  71:Core/Src/freertos.c **** 
+ARM GAS  C:\Users\30806\AppData\Local\Temp\cceANLSV.s 			page 3
+
+
+  72:Core/Src/freertos.c **** void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskS
+  73:Core/Src/freertos.c **** {
+  74:Core/Src/freertos.c ****   *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+  75:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
+  76:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+  77:Core/Src/freertos.c ****   /* place for user code */
+  78:Core/Src/freertos.c **** }
+  79:Core/Src/freertos.c **** /* USER CODE END GET_IDLE_TASK_MEMORY */
+  80:Core/Src/freertos.c **** 
+  81:Core/Src/freertos.c **** /**
+  82:Core/Src/freertos.c ****   * @brief  FreeRTOS initialization
+  83:Core/Src/freertos.c ****   * @param  None
+  84:Core/Src/freertos.c ****   * @retval None
+  85:Core/Src/freertos.c ****   */
+  86:Core/Src/freertos.c **** void MX_FREERTOS_Init(void) {
+  87:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
+  88:Core/Src/freertos.c **** 
+  89:Core/Src/freertos.c ****   /* USER CODE END Init */
+  90:Core/Src/freertos.c **** 
+  91:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_MUTEX */
+  92:Core/Src/freertos.c ****   /* add mutexes, ... */
+  93:Core/Src/freertos.c ****   /* USER CODE END RTOS_MUTEX */
+  94:Core/Src/freertos.c **** 
+  95:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_SEMAPHORES */
+  96:Core/Src/freertos.c ****   /* add semaphores, ... */
+  97:Core/Src/freertos.c ****   /* USER CODE END RTOS_SEMAPHORES */
+  98:Core/Src/freertos.c **** 
+  99:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_TIMERS */
+ 100:Core/Src/freertos.c ****   /* start timers, add new ones, ... */
+ 101:Core/Src/freertos.c ****   /* USER CODE END RTOS_TIMERS */
+ 102:Core/Src/freertos.c **** 
+ 103:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_QUEUES */
+ 104:Core/Src/freertos.c ****   /* add queues, ... */
+ 105:Core/Src/freertos.c ****   /* USER CODE END RTOS_QUEUES */
+ 106:Core/Src/freertos.c **** 
+ 107:Core/Src/freertos.c ****   /* Create the thread(s) */
+ 108:Core/Src/freertos.c ****   /* definition and creation of defaultTask */
+ 109:Core/Src/freertos.c ****   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+ 110:Core/Src/freertos.c ****   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+ 111:Core/Src/freertos.c **** 
+ 112:Core/Src/freertos.c ****   /* definition and creation of chssis_task */
+ 113:Core/Src/freertos.c ****   osThreadDef(chssis_task, Chassis_Task, osPriorityNormal, 0, 1024);
+ 114:Core/Src/freertos.c ****   chssis_taskHandle = osThreadCreate(osThread(chssis_task), NULL);
+ 115:Core/Src/freertos.c **** 
+ 116:Core/Src/freertos.c ****   /* definition and creation of safe_task */
+ 117:Core/Src/freertos.c ****   osThreadDef(safe_task, Safe_Task, osPriorityNormal, 0, 512);
+ 118:Core/Src/freertos.c ****   safe_taskHandle = osThreadCreate(osThread(safe_task), NULL);
+ 119:Core/Src/freertos.c **** 
+ 120:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_THREADS */
+ 121:Core/Src/freertos.c ****   /* add threads, ... */
+ 122:Core/Src/freertos.c ****   /* USER CODE END RTOS_THREADS */
+ 123:Core/Src/freertos.c **** 
+ 124:Core/Src/freertos.c **** }
+ 125:Core/Src/freertos.c **** 
+ 126:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartDefaultTask */
+ 127:Core/Src/freertos.c **** /**
+ 128:Core/Src/freertos.c ****   * @brief  Function implementing the defaultTask thread.
+ARM GAS  C:\Users\30806\AppData\Local\Temp\cceANLSV.s 			page 4
+
+
+ 129:Core/Src/freertos.c ****   * @param  argument: Not used
+ 130:Core/Src/freertos.c ****   * @retval None
+ 131:Core/Src/freertos.c ****   */
+ 132:Core/Src/freertos.c **** /* USER CODE END Header_StartDefaultTask */
+ 133:Core/Src/freertos.c **** void StartDefaultTask(void const * argument)
+ 134:Core/Src/freertos.c **** {
+  39              		.loc 1 134 1 view -0
+  40              		.cfi_startproc
+  41              		@ Volatile: function does not return.
+  42              		@ args = 0, pretend = 0, frame = 0
+  43              		@ frame_needed = 0, uses_anonymous_args = 0
+  44              	.LVL0:
+  45              		.loc 1 134 1 is_stmt 0 view .LVU1
+  46 0000 08B5     		push	{r3, lr}
+  47              		.cfi_def_cfa_offset 8
+  48              		.cfi_offset 3, -8
+  49              		.cfi_offset 14, -4
+  50              	.LVL1:
+  51              	.L2:
+ 135:Core/Src/freertos.c ****   /* USER CODE BEGIN StartDefaultTask */
+ 136:Core/Src/freertos.c ****   /* Infinite loop */
+ 137:Core/Src/freertos.c ****   for(;;)
+  52              		.loc 1 137 3 is_stmt 1 discriminator 1 view .LVU2
+ 138:Core/Src/freertos.c ****   {
+ 139:Core/Src/freertos.c ****     osDelay(1);
+  53              		.loc 1 139 5 discriminator 1 view .LVU3
+  54 0002 0120     		movs	r0, #1
+  55 0004 FFF7FEFF 		bl	osDelay
+  56              	.LVL2:
+ 137:Core/Src/freertos.c ****   {
+  57              		.loc 1 137 8 discriminator 1 view .LVU4
+  58 0008 FBE7     		b	.L2
+  59              		.cfi_endproc
+  60              	.LFE141:
+  62              		.section	.text.vApplicationGetIdleTaskMemory,"ax",%progbits
+  63              		.align	1
+  64              		.global	vApplicationGetIdleTaskMemory
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  68              		.fpu fpv4-sp-d16
+  70              	vApplicationGetIdleTaskMemory:
+  71              	.LVL3:
+  72              	.LFB139:
+  73:Core/Src/freertos.c ****   *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+  73              		.loc 1 73 1 view -0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77              		@ link register save eliminated.
+  74:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
+  78              		.loc 1 74 3 view .LVU6
+  74:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
+  79              		.loc 1 74 25 is_stmt 0 view .LVU7
+  80 0000 034B     		ldr	r3, .L5
+  81 0002 0360     		str	r3, [r0]
+  75:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+ARM GAS  C:\Users\30806\AppData\Local\Temp\cceANLSV.s 			page 5
+
+
+  82              		.loc 1 75 3 is_stmt 1 view .LVU8
+  75:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+  83              		.loc 1 75 27 is_stmt 0 view .LVU9
+  84 0004 034B     		ldr	r3, .L5+4
+  85 0006 0B60     		str	r3, [r1]
+  76:Core/Src/freertos.c ****   /* place for user code */
+  86              		.loc 1 76 3 is_stmt 1 view .LVU10
+  76:Core/Src/freertos.c ****   /* place for user code */
+  87              		.loc 1 76 25 is_stmt 0 view .LVU11
+  88 0008 8023     		movs	r3, #128
+  89 000a 1360     		str	r3, [r2]
+  78:Core/Src/freertos.c **** /* USER CODE END GET_IDLE_TASK_MEMORY */
+  90              		.loc 1 78 1 view .LVU12
+  91 000c 7047     		bx	lr
+  92              	.L6:
+  93 000e 00BF     		.align	2
+  94              	.L5:
+  95 0010 00000000 		.word	.LANCHOR0
+  96 0014 00000000 		.word	.LANCHOR1
+  97              		.cfi_endproc
+  98              	.LFE139:
+ 100              		.section	.text.MX_FREERTOS_Init,"ax",%progbits
+ 101              		.align	1
+ 102              		.global	MX_FREERTOS_Init
+ 103              		.syntax unified
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.fpu fpv4-sp-d16
+ 108              	MX_FREERTOS_Init:
+ 109              	.LFB140:
+  86:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
+ 110              		.loc 1 86 29 is_stmt 1 view -0
+ 111              		.cfi_startproc
+ 112              		@ args = 0, pretend = 0, frame = 88
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114 0000 10B5     		push	{r4, lr}
+ 115              		.cfi_def_cfa_offset 8
+ 116              		.cfi_offset 4, -8
+ 117              		.cfi_offset 14, -4
+ 118 0002 96B0     		sub	sp, sp, #88
+ 119              		.cfi_def_cfa_offset 96
+ 109:Core/Src/freertos.c ****   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+ 120              		.loc 1 109 3 view .LVU14
+ 121 0004 1B4C     		ldr	r4, .L9
+ 122 0006 0DF13C0C 		add	ip, sp, #60
+ 123 000a A646     		mov	lr, r4
+ 124 000c BEE80F00 		ldmia	lr!, {r0, r1, r2, r3}
+ 125 0010 ACE80F00 		stmia	ip!, {r0, r1, r2, r3}
+ 126 0014 9EE80700 		ldm	lr, {r0, r1, r2}
+ 127 0018 8CE80700 		stm	ip, {r0, r1, r2}
+ 110:Core/Src/freertos.c **** 
+ 128              		.loc 1 110 3 view .LVU15
+ 110:Core/Src/freertos.c **** 
+ 129              		.loc 1 110 23 is_stmt 0 view .LVU16
+ 130 001c 0021     		movs	r1, #0
+ 131 001e 0FA8     		add	r0, sp, #60
+ 132 0020 FFF7FEFF 		bl	osThreadCreate
+ARM GAS  C:\Users\30806\AppData\Local\Temp\cceANLSV.s 			page 6
+
+
+ 133              	.LVL4:
+ 110:Core/Src/freertos.c **** 
+ 134              		.loc 1 110 21 view .LVU17
+ 135 0024 144B     		ldr	r3, .L9+4
+ 136 0026 1860     		str	r0, [r3]
+ 113:Core/Src/freertos.c ****   chssis_taskHandle = osThreadCreate(osThread(chssis_task), NULL);
+ 137              		.loc 1 113 3 is_stmt 1 view .LVU18
+ 138 0028 0DF1200C 		add	ip, sp, #32
+ 139 002c 04F11C0E 		add	lr, r4, #28
+ 140 0030 BEE80F00 		ldmia	lr!, {r0, r1, r2, r3}
+ 141 0034 ACE80F00 		stmia	ip!, {r0, r1, r2, r3}
+ 142 0038 9EE80700 		ldm	lr, {r0, r1, r2}
+ 143 003c 8CE80700 		stm	ip, {r0, r1, r2}
+ 114:Core/Src/freertos.c **** 
+ 144              		.loc 1 114 3 view .LVU19
+ 114:Core/Src/freertos.c **** 
+ 145              		.loc 1 114 23 is_stmt 0 view .LVU20
+ 146 0040 0021     		movs	r1, #0
+ 147 0042 08A8     		add	r0, sp, #32
+ 148 0044 FFF7FEFF 		bl	osThreadCreate
+ 149              	.LVL5:
+ 114:Core/Src/freertos.c **** 
+ 150              		.loc 1 114 21 view .LVU21
+ 151 0048 0C4B     		ldr	r3, .L9+8
+ 152 004a 1860     		str	r0, [r3]
+ 117:Core/Src/freertos.c ****   safe_taskHandle = osThreadCreate(osThread(safe_task), NULL);
+ 153              		.loc 1 117 3 is_stmt 1 view .LVU22
+ 154 004c 0DF1040E 		add	lr, sp, #4
+ 155 0050 04F1380C 		add	ip, r4, #56
+ 156 0054 BCE80F00 		ldmia	ip!, {r0, r1, r2, r3}
+ 157 0058 AEE80F00 		stmia	lr!, {r0, r1, r2, r3}
+ 158 005c 9CE80700 		ldm	ip, {r0, r1, r2}
+ 159 0060 8EE80700 		stm	lr, {r0, r1, r2}
+ 118:Core/Src/freertos.c **** 
+ 160              		.loc 1 118 3 view .LVU23
+ 118:Core/Src/freertos.c **** 
+ 161              		.loc 1 118 21 is_stmt 0 view .LVU24
+ 162 0064 0021     		movs	r1, #0
+ 163 0066 01A8     		add	r0, sp, #4
+ 164 0068 FFF7FEFF 		bl	osThreadCreate
+ 165              	.LVL6:
+ 118:Core/Src/freertos.c **** 
+ 166              		.loc 1 118 19 view .LVU25
+ 167 006c 044B     		ldr	r3, .L9+12
+ 168 006e 1860     		str	r0, [r3]
+ 124:Core/Src/freertos.c **** 
+ 169              		.loc 1 124 1 view .LVU26
+ 170 0070 16B0     		add	sp, sp, #88
+ 171              		.cfi_def_cfa_offset 8
+ 172              		@ sp needed
+ 173 0072 10BD     		pop	{r4, pc}
+ 174              	.L10:
+ 175              		.align	2
+ 176              	.L9:
+ 177 0074 00000000 		.word	.LANCHOR2
+ 178 0078 00000000 		.word	.LANCHOR3
+ 179 007c 00000000 		.word	.LANCHOR4
+ARM GAS  C:\Users\30806\AppData\Local\Temp\cceANLSV.s 			page 7
+
+
+ 180 0080 00000000 		.word	.LANCHOR5
+ 181              		.cfi_endproc
+ 182              	.LFE140:
+ 184              		.global	safe_taskHandle
+ 185              		.global	chssis_taskHandle
+ 186              		.global	defaultTaskHandle
+ 187              		.section	.rodata
+ 188              		.align	2
+ 189              		.set	.LANCHOR2,. + 0
+ 190              	.LC6:
+ 191 0000 00000000 		.word	.LC0
+ 192 0004 00000000 		.word	StartDefaultTask
+ 193 0008 0000     		.short	0
+ 194 000a 0000     		.space	2
+ 195 000c 00000000 		.word	0
+ 196 0010 80000000 		.word	128
+ 197 0014 00000000 		.word	0
+ 198 0018 00000000 		.word	0
+ 199              	.LC7:
+ 200 001c 0C000000 		.word	.LC2
+ 201 0020 00000000 		.word	Chassis_Task
+ 202 0024 0000     		.short	0
+ 203 0026 0000     		.space	2
+ 204 0028 00000000 		.word	0
+ 205 002c 00040000 		.word	1024
+ 206 0030 00000000 		.word	0
+ 207 0034 00000000 		.word	0
+ 208              	.LC8:
+ 209 0038 18000000 		.word	.LC4
+ 210 003c 00000000 		.word	Safe_Task
+ 211 0040 0000     		.short	0
+ 212 0042 0000     		.space	2
+ 213 0044 00000000 		.word	0
+ 214 0048 00020000 		.word	512
+ 215 004c 00000000 		.word	0
+ 216 0050 00000000 		.word	0
+ 217              		.section	.bss.chssis_taskHandle,"aw",%nobits
+ 218              		.align	2
+ 219              		.set	.LANCHOR4,. + 0
+ 222              	chssis_taskHandle:
+ 223 0000 00000000 		.space	4
+ 224              		.section	.bss.defaultTaskHandle,"aw",%nobits
+ 225              		.align	2
+ 226              		.set	.LANCHOR3,. + 0
+ 229              	defaultTaskHandle:
+ 230 0000 00000000 		.space	4
+ 231              		.section	.bss.safe_taskHandle,"aw",%nobits
+ 232              		.align	2
+ 233              		.set	.LANCHOR5,. + 0
+ 236              	safe_taskHandle:
+ 237 0000 00000000 		.space	4
+ 238              		.section	.bss.xIdleStack,"aw",%nobits
+ 239              		.align	2
+ 240              		.set	.LANCHOR1,. + 0
+ 243              	xIdleStack:
+ 244 0000 00000000 		.space	512
+ 244      00000000 
+ARM GAS  C:\Users\30806\AppData\Local\Temp\cceANLSV.s 			page 8
+
+
+ 244      00000000 
+ 244      00000000 
+ 244      00000000 
+ 245              		.section	.bss.xIdleTaskTCBBuffer,"aw",%nobits
+ 246              		.align	2
+ 247              		.set	.LANCHOR0,. + 0
+ 250              	xIdleTaskTCBBuffer:
+ 251 0000 00000000 		.space	84
+ 251      00000000 
+ 251      00000000 
+ 251      00000000 
+ 251      00000000 
+ 252              		.text
+ 253              	.Letext0:
+ 254              		.file 2 "c:\\users\\30806\\.eide\\tools\\gcc_arm\\arm-none-eabi\\include\\machine\\_default_types.
+ 255              		.file 3 "c:\\users\\30806\\.eide\\tools\\gcc_arm\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 256              		.file 4 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h"
+ 257              		.file 5 "Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h"
+ 258              		.file 6 "Middlewares/Third_Party/FreeRTOS/Source/include/task.h"
+ 259              		.file 7 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+ARM GAS  C:\Users\30806\AppData\Local\Temp\cceANLSV.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 freertos.c
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:15     .rodata.str1.4:00000000 $d
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:28     .text.StartDefaultTask:00000000 $t
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:36     .text.StartDefaultTask:00000000 StartDefaultTask
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:63     .text.vApplicationGetIdleTaskMemory:00000000 $t
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:70     .text.vApplicationGetIdleTaskMemory:00000000 vApplicationGetIdleTaskMemory
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:95     .text.vApplicationGetIdleTaskMemory:00000010 $d
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:101    .text.MX_FREERTOS_Init:00000000 $t
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:108    .text.MX_FREERTOS_Init:00000000 MX_FREERTOS_Init
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:177    .text.MX_FREERTOS_Init:00000074 $d
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:236    .bss.safe_taskHandle:00000000 safe_taskHandle
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:222    .bss.chssis_taskHandle:00000000 chssis_taskHandle
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:229    .bss.defaultTaskHandle:00000000 defaultTaskHandle
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:188    .rodata:00000000 $d
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:218    .bss.chssis_taskHandle:00000000 $d
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:225    .bss.defaultTaskHandle:00000000 $d
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:232    .bss.safe_taskHandle:00000000 $d
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:239    .bss.xIdleStack:00000000 $d
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:243    .bss.xIdleStack:00000000 xIdleStack
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:246    .bss.xIdleTaskTCBBuffer:00000000 $d
+C:\Users\30806\AppData\Local\Temp\cceANLSV.s:250    .bss.xIdleTaskTCBBuffer:00000000 xIdleTaskTCBBuffer
+
+UNDEFINED SYMBOLS
+osDelay
+osThreadCreate
+Chassis_Task
+Safe_Task
